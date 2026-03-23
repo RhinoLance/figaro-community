@@ -5,12 +5,18 @@
 
   <p><strong>CAT command task automation for the QMX transceiver</strong></p>
 
+  <img src="https://img.shields.io/badge/platform-Android%20%7C%20iOS%20%20%7C%20Web-blue" alt="Platforms"/>
+
   <p>
     <a href="https://play.google.com/store/apps/details?id=com.rhinosw.figaro">
-      <img src="https://img.shields.io/badge/Google%20Play-available-brightgreen?logo=google-play" alt="Google Play"/>
+      <img src="https://img.shields.io/badge/Google%20Play-download-brightgreen?logo=google-play" alt="Google Play"/>
     </a>
-    <img src="https://img.shields.io/badge/platform-Android%20%7C%20iOS%20%20%7C%20Web-blue" alt="Platforms"/>
-  </p>
+    <a href="https://rhinolance.github.io/figaro/">
+        <img src="https://img.shields.io/badge/Visit-Web%20App-brightgreen?logo=googlechrome&logoColor=white" alt="Platforms"/>
+    </a>
+    
+  </p>            
+    
 </div>
 
 ---
@@ -36,6 +42,17 @@ Be aware also, that the CAT API may change between firmware versions.  Review
 your scripts in conjunction with planned firmware updates.
 
 That out of the way, let's explore Figaro.
+
+# Availability:
+
+[![Visit Web App](https://img.shields.io/badge/Visit-Web%20App-green?logo=googlechrome&logoColor=white)](https://rhinolance.github.io/figaro/)
+
+[![Google Play](https://img.shields.io/badge/Google%20Play-Download-green?logo=googleplay&logoColor=white)](https://play.google.com/store/apps/details?id=com.rhinosw.figaro)
+
+![iOS In Progress](https://img.shields.io/badge/iOS-In%20Progress-orange?logo=appstore&logoColor=white)
+
+Whilst an iOS build is in the pipeline, not having a mac to develop against does make it a little tough.
+
 
 ## Features
 
