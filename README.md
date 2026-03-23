@@ -20,10 +20,10 @@ Figaro is a free app for ham radio operators. It lets you write, manage, and run
 ---
 ![screenshot](docs/media/screenshot-web.jpg)
 ---
-<div style="color: #CC0000;">
-<H1> WARNING</h1>
+# WARNING
+
 Figaro is a labour of love, no warranty, implied or express is provided.
-</div>
+
 
 The only intelligence involved in deciding if a series of CAT commands are safe 
 to run on your radio is yours.
