@@ -40,7 +40,9 @@ To re-order, hold a task, and move it to the preferred location.
 
 ### Script
 
-The script allows you to select either an existing script from the community library, or create your own [custom script](scripts.md).
+The script allows you to select either an existing script from the community library, or create your own [custom script](scripts.md).  
+
+When loading a script from the library, ensure that you've reviewed the script first and are comfortable with its operation.  Scripts my be viewed in the [script library respsitory](https://github.com/RhinoLance/figaro-community/tree/main/script-library).
 
 ### Task colour
 
