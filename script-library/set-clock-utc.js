@@ -7,4 +7,4 @@ const timestampUTC =
 	pad(now.getUTCMinutes()) +
 	pad(now.getUTCSeconds());
 
-sendCat(`TM${timestampUTC};`);
+sendCat(`TM${timestampUTC};`, false);

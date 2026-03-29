@@ -7,4 +7,4 @@ const timestamp =
 	pad(now.getMinutes()) +
 	pad(now.getSeconds());
 
-sendCat(`TM${timestamp};`);
+sendCat(`TM${timestamp};`, false);
