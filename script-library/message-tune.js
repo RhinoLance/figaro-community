@@ -109,9 +109,9 @@ const runner = Promise.resolve(true)
 		
 		let chain = Promise.resolve();
 
-		for (const freq of freqList) {
+		freqList.map(freq => {
 			chain = chain.then(() => tuneAndCheckFreqSWR(freq));
-		}
+		});
 
 		return chain;
 
