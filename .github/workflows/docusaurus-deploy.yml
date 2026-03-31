@@ -2,7 +2,9 @@ name: Docusaurus Deploy
 
 on:
   push:
-    branches: [main]
+    branches: 
+      - main
+      - deploy-setup
   workflow_dispatch:
 
 concurrency:
@@ -14,12 +16,6 @@ env:
 
 jobs:
   deploy:
-    if: |
-      (github.event_name == 'push' && github.ref == 'refs/heads/main') ||
-      (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main') ||
-      
-      (github.event_name == 'push' && github.ref == 'refs/heads/deploy-setup') ||
-      (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/deploy-setup')
     runs-on: ubuntu-latest
 
     permissions:
