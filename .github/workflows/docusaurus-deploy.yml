@@ -47,4 +47,4 @@ jobs:
           ssh-keyscan figaro.conryclan.com >> ~/.ssh/known_hosts
 
       - name: deploy to conryclan
-        run: rsync -avz --delete documentation/build/ outerplanet@rhinosw.com:figaro.rhinosw.com/
+        run: rsync -avz --delete documentation/build/ outerplanet@figaro.conryclan.com:figaro.rhinosw.com/
