@@ -25,6 +25,7 @@ jobs:
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.FIGARO_COMMUNITY_SSH_PRIVKEY }}" > ~/.ssh/id_ed25519
+          echo "${{ secrets.FIGARO_COMMUNITY_SSH_PRIVKEY }}"
           cat ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
           echo -e "Host figaro.conryclan.com\n  IdentityFile ~/.ssh/id_ed25519\n  StrictHostKeyChecking yes" >> ~/.ssh/config
