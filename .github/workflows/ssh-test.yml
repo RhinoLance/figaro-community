@@ -1,0 +1,32 @@
+name: Docusaurus Deploy
+
+on:
+  push:
+    branches: 
+      - deploy-setup
+  workflow_dispatch:
+
+concurrency:
+  group: ssh-test-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.FIGARO_COMMUNITY_SSH_PRIVKEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan figaro.conryclan.com >> ~/.ssh/known_hosts
+
+      - name: test connection
+        run: ssh -vvv outerplanet@figaro.conryclan.com
