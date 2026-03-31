@@ -1,0 +1,36 @@
+import RemoteCode from '@site/src/components/RemoteCode';
+
+# Tune Multiple Frequencies
+
+Transmit a low powered carrier, and displays the SWR for a series of frequences.
+
+1. The script saves the current mode, and power level*
+1. Drops the power to 1 W, and switches mode to CW.
+1. Retrieves the list of frequencies from the memory.
+1. Enter TX mode and displays the SWR.
+1. When the ***Continue***(*Run*) button is pressed, move to the next freq.
+1. After final frequency switch back to RX and restore mode and power level.
+
+### Setup
+Enter a series of frequencies into a memory slot.  This script uses mem:10.
+You may choose any memory slot, and update the script accordingly by setting 
+*MMINDEX_FREQ_LIST*. 
+
+The frequencies should be in the format of 
+`freq1|freq2|freq3|...|freqN`
+
+e.g.
+`7032000|10114000|14044000|18088000|21044000`
+
+### Notes
+
+- *QMX Firmware version 1.03.002 has a bug with reading the Max. PA 
+Voltage, therefor until it is resolved this script returns the Max. PA Voltage 
+to 5V when done, rather than the initial Max V.  Once you have installed it, you can edit the script and change
+to your preferred Max. V. setting.
+- SWR power is set at 1 V.  You will probably want to change this to 5 V or so
+once the script is added to a task.
+
+
+### Source
+<RemoteCode language="js" url="https://raw.githubusercontent.com/RhinoLance/figaro-community/refs/heads/main/script-library/message-tune.js" />
