@@ -1,0 +1,53 @@
+name: Docusaurus Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: web-pages-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  deploy:
+    if: |
+      (github.event_name == 'push' && github.ref == 'refs/heads/deploy-setup') ||
+      (github.event_name == 'push' && github.ref == 'refs/heads/main') ||
+#     (github.event_name == 'push' && github.ref == 'refs/heads/develop') ||
+      (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main')
+#     (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/develop')
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Docusaurus site
+        shell: bash
+        run: npm run build
+
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.FIGARO_COMMUNITY_SSH_PRIVKEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan figaro.conryclan.com >> ~/.ssh/known_hosts
+
+      - name: deploy to conryclan
+        run: rsync -avz --delete documentation/build/ outerplanet@rhinosw.com:figaro.rhinosw.com/
