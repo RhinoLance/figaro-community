@@ -1,0 +1,50 @@
+name: Docusaurus Deploy
+
+on:
+  push:
+    branches: 
+      - main
+      - deploy-setup
+  workflow_dispatch:
+
+concurrency:
+  group: web-pages-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: documentation/package-lock.json
+
+      - name: Install dependencies
+        run: cd documentation && npm ci
+
+      - name: Build Docusaurus site
+        shell: bash
+        run: cd documentation && npm run build
+
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.FIGARO_COMMUNITY_SSH_PRIVKEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan figaro.conryclan.com >> ~/.ssh/known_hosts
+
+      - name: deploy to conryclan
+        run: rsync -avz --delete documentation/build/ outerplanet@figaro.conryclan.com:figaro.conryclan.com/

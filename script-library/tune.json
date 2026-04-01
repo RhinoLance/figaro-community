@@ -1,5 +1,5 @@
 {
-  "title": "Set Tune mode",
+  "title": "Tune mode",
   "description": "Transmit a low powered carrier and display the SWR",
   "tags": ["tune", "swr"],
   "created": "2026-03-21"
