@@ -32,6 +32,15 @@ is usefull for preventing accidental execution of tasks.
 **Note** that this is a UI lock only. If both Auto-run and Auto-lock are 
 enabled, the script will still execute as Auto-run’able without being armed.
 
+:::tip
+
+If you wish to go back and edit your task, do so by:
+
+- **Android**: Swiping the task left.
+- **Web**: Right clicking the task.
+
+:::
+
 ## Running your task
 
 Congratulations, you've created your first task.

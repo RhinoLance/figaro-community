@@ -93,9 +93,15 @@ const config: Config = {
           position: 'left',
           label: 'Script Library',
         },
+        {
+          type: 'docSidebar',
+          sidebarId: 'communitySidebar',
+          position: 'left',
+          label: 'Community',
+        },
         //{to: '/blog', label: 'Blog', position: 'left'},
         {
-          href: 'https://github.com/facebook/docusaurus',
+          href: 'https://github.com/rhinolance/figaro-community',
           label: 'GitHub',
           position: 'right',
         },
@@ -141,7 +147,7 @@ const config: Config = {
             },
             {
               label: 'GitHub',
-              href: 'https://github.com/facebook/docusaurus',
+              href: 'https://github.com/rhinolance/figaro-community',
             },
           ],
         },*/

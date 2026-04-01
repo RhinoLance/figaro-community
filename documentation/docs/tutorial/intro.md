@@ -4,7 +4,25 @@ sidebar_position: 1
 
 # Tutorial Intro
 
-Let's discover **Figaro in less than 5 minutes**.
+
+:::warning
+
+Figaro is a labour of love, no warranty, implied or express is provided.
+
+
+The only intelligence involved in deciding if a series of CAT commands are safe 
+to run on your radio is yours.
+
+Likewise, scripts found in the community library are a convenience tool to share
+ user's scripts.  You should ensure that you are comfortable with them before 
+ installing or executing.
+
+Be aware also, that the CAT API may change between firmware versions.  Review 
+your scripts in conjunction with planned firmware updates.
+
+:::
+
+That out of the way, let's discover **Figaro in less than 5 minutes**.
 
 ## Getting Started
 
@@ -15,7 +33,7 @@ Get started by **connecting your radio to Figaro**.
 - An amazing radio; QMX or QMX+.
 - A phone/tablet with Figaro installed
 **OR**
-- A modern browser pointing to [Figaro's Web App](https://rhinolance.github.io/figaro/).
+- A modern browser pointing to [Figaro's Web App](https://app.figaro.conryclan.com/).
 
 ### QMX serial port
 

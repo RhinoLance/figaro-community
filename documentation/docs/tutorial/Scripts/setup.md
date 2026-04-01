@@ -22,4 +22,15 @@ and it's free.
 connection to your QMX.
 1. Open DevTools and verify that you can view console output.
 
+:::tip
+
+Once you've developed your script on the computer, transfer it to your
+Android device where you can copy and paste into a new task.  Some choices to 
+do this include:
+
+- Message yourself using **WhatsApp**, **Signal**, **iMessage** or any other messanger.
+- Save and retrieve via **OneDrive**, **Google Docs**, **iCloud Drive**
+
+:::
+
 You're now ready to create your first script.

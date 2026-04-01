@@ -68,6 +68,14 @@ Promise.resolve()
 Add a new task and run it.  You should observe your QMX cycling through the set 
 frequencies with a 5 second delay.
 
+:::tip
+
+Now that you've started working with Promises, you'll find yourself 
+needing to debug your scripts.  Helpfull tips are found in the 
+**[debugging](debugging)** page.
+
+:::
+
 ### Congratulations
 You can now delay script execution.
 
