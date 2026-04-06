@@ -10,7 +10,7 @@ untill you choose to move on to the next frequency.
 
 ### The Pause command
 
-`pause(icon: string='play-pause', color?:string): Promise<void>`
+`pause(icon: string='play-pause', colour?:string): Promise<void>`
 
 Pause script execution until the ***Run*** button is pressed again.
 
@@ -21,7 +21,7 @@ There are also two new parameters:
 -  `'play-pause'` ![play-pause](./img/play-pause.png)
 -  `'stop'` ![stop](./img/stop.png)
 
-**color**: Change the button's background colour to any hex value.  
+**colour**: Change the button's background colour to any hex value.  
 e.g. `#FF0000`.
 
 ### Updating the script
