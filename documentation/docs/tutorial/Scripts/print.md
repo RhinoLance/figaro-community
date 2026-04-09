@@ -25,12 +25,10 @@ Now let's create a new script to retrieve and display the radio's firmware
 version.
 
 ```js title="Monitor frequencies" showLineNumbers
-sendCat(`VN;`)
-    .then( response =>  {
-        //remember to remove the 'VN' from the response.
-        print(response.substring(2));
-        delay(5000);
-    });
+const response = await sendCat(`VN;`)
+//remember to remove the 'VN' from the response.
+print(response.substring(2));
+await delay(5000);
 ```
 
 ### Installing the script

@@ -7,6 +7,9 @@ sidebar_position: 9
 Given that many scripts will be executing asynchronous code, the Task object
 provides a series of helpers to manage the script lifecycle.
 
+These examples are using promises directly rather than async/await to better 
+demonstrate their use.
+
 
 ### Task API
 

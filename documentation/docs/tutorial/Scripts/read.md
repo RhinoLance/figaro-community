@@ -37,39 +37,31 @@ restore it once done.
 
 ```js title="Monitor frequencies" showLineNumbers
 const freqList = [7032000, 10114000, 14044000];
-// highlight-next-line
-let initialFreq = 0;
 
-const setFreq = (freq) => {
+const setFreq = async (freq) => {
     //set the freq.
-    sendCat(`FA${freq};`);
+    sendCat(`FA${freq};`, false);
     //wait for user input.
-    return pause('play-pause', '#00c3ff')
+    await pause('play-pause', '#00c3ff')
 };
 
 // highlight-start
-const getInitialFreq = ()=> {
-    return sendCat("FA;")
-        .then(response=> {
-            //Remove "FA" from the start of the response.
-            const trimmedFreq = response.substring(2);
-            //save to an outer variable
-            initialFreq = trimmedFreq;
-        })
+const getInitialFreq = async ()=> {
+    const response = await sendCat("FA;")
+    //Remove "FA" from the start of the response.
+    const trimmedFreq = response.substring(2);
+    return trimmedFreq;
 };
 // highlight-end
 
-Promise.resolve()
-    // highlight-next-line
-    .then( () => getInitialFreq())
-    .then( () => setFreq(freqList[0]))
-    .then( () => setFreq(freqList[1]))
-    .then( () => setFreq(freqList[2]))
+// highlight-next-line
+const initialFreq = await getInitialFreq();
+await setFreq(freqList[0]);
+await setFreq(freqList[1]);
+await setFreq(freqList[2]);
 // highlight-start
-    .then( () => {
-        //restore the initial frequency
-        sendCat(`FA${initialFreq};`);
-    });
+//restore the initial frequency
+await sendCat(`FA${initialFreq};`, false);
 // highlight-end
 ```
 

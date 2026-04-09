@@ -18,29 +18,24 @@ The three frequencies we're interested in are 7.032, 10.114 and 14.044 MHz.
 
 Delays script execution for the number of milliseconds.
 
-If you're not familiar with the `Promise` object, I suggest you review the 
+If you're not familiar with the `Promise` object and async/await, I suggest you review the 
 [Promise specification](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
-.  In a nutshell, it's how we deal with asynchronous tasks.
+.  In a nutshell, it's how we deal with asynchronous tasks.  In a nutshell,
+any function which returns a promise should either use `.then` or `await`.
 
 ### Updating the script
 
 ```js title="Monitor frequencies"
 // set the first freq.
-sendCat("FA7032000;");
+sendCat("FA7032000;", false);
 //delay for 5 seconds.
-delay(5000)
-	.then(() => {
-		//set the second freq.
-		sendCat("FA10114000;");
-		//delay for 5 seconds.
-		return delay(5000)
-	})
-	.then(() => {
-		//set the third freq.
-		sendCat("FA14044000;");
-		
-		//no need to delay as we're done.
-	});
+await delay(5000)
+//set the second freq.
+sendCat("FA10114000;", false);
+//delay for 5 seconds.
+await delay(5000)
+//set the third freq.
+sendCat("FA14044000;", false);
 ```
 
 Being in a Javascript environment, we of course have access to flow control
@@ -49,17 +44,16 @@ structures, so let's simplify our script.
 ```js title="Monitor frequencies"
 const freqList = [7032000, 10114000, 14044000];
 
-const setFreq = (freq) => {
+const setFreq = async (freq) => {
     //set the freq.
-    sendCat(`FA${freq};`);
+    sendCat(`FA${freq};`, false);
     //delay for 5 seconds.
-    return delay(5000);
+    await delay(5000);
 };
 
-Promise.resolve()
-    .then( () => setFreq(freqList[0]))
-    .then( () => setFreq(freqList[1]))
-    .then( () => setFreq(freqList[2]));
+await setFreq(freqList[0]);
+await setFreq(freqList[1]);
+await setFreq(freqList[2]);
 
 ```
 

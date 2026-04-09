@@ -34,18 +34,17 @@ Now let's update the script to wait for you instead of the fixed timout.
 ```js title="Monitor frequencies"
 const freqList = [7032000, 10114000, 14044000];
 
-const setFreq = (freq) => 
+const setFreq = async (freq) => {
     //set the freq.
-    sendCat(`FA${freq};`);
+    sendCat(`FA${freq};`, false);
     //wait for user input.
 // highlight-next-line
-    return pause('play-pause', '#00c3ff');
+    await pause('play-pause', '#00c3ff');
 };
 
-Promise.resolve()
-    .then( () => setFreq(freqList[0]))
-    .then( () => setFreq(freqList[1]))
-    .then( () => setFreq(freqList[2]));
+await setFreq(freqList[0]);
+await setFreq(freqList[1]);
+await setFreq(freqList[2]);
 
 ```
 
