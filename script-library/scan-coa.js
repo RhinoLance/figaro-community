@@ -7,9 +7,10 @@ const SCAN_SPEED = 100; // 100ms between frequency changes, adjust as needed
 
 let freq =0;
 let vfo;
+let scanActive = false;
 
-let scanIntervalId;
-let txMonitorIntervalId;
+let scanTimerId;
+let txMonitorTimerId;
 
 let resume;
 
@@ -92,18 +93,28 @@ const getState = () => {
 
 };
 
+const startScan = (freqGenerator) => {
+		const nextFreq = freqGenerator.next().value;
+		sendCat(`F${vfo}${nextFreq};`, false);
+
+		if( !scanActive ) {
+			return;
+		}
+		
+		// Use recursive setTimeout to mitigate slower devices not keeping up 
+		// with the scan speed when using setInterval
+		scanTimerId = task.setTimeout(() => {
+			startScan(freqGenerator);
+		}, SCAN_SPEED);
+	};
+
 const scan = () => {
 	
 	const initValues = findStartIndexAndFreq();
 	const freqGenerator = scanFreqList(initValues.index, initValues.freq);
-
-	scanIntervalId = task.setInterval(() => {
-		const nextFreq = freqGenerator.next().value;
-		if (nextFreq !== undefined) {
-			freq = nextFreq;
-			sendCat(`F${vfo}${freq};`, false);
-		}
-	}, SCAN_SPEED);
+	
+	scanActive = true;
+	startScan(freqGenerator);
 };
 
 const monitorTx = () => {
@@ -116,14 +127,19 @@ const monitorTx = () => {
 				cancelScan();
 			}
 		});
-	};
 
-	txMonitorIntervalId = task.setInterval(checkTxStatus, 100);
+		if (scanActive) {
+			txMonitorTimerId = task.setTimeout(checkTxStatus, 100);
+		}
+	};
+	
+	checkTxStatus();
 };
 
 const cancelScan = () => {
-	task.clearInterval(scanIntervalId);
-	task.clearInterval(txMonitorIntervalId);
+	scanActive = false;
+	task.clearTimeout(scanTimerId);
+	task.clearTimeout(txMonitorTimerId);
 }
 
 const runner = Promise.resolve()
