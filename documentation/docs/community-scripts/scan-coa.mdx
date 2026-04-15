@@ -1,0 +1,19 @@
+import RemoteCode from '@site/src/components/RemoteCode';
+
+# Scan - COA
+
+Scan around defined Centres of Activity (COA).
+
+This script will cycle through list of COAs, scanning the 
+prescribed frequency range around each one.
+
+Scanning may be stopped either by pressing the stop button, or by keying your 
+key, paddle or mic (anything which briefly puts the radio into TX mode);
+
+### Configuration
+Edit the following variables at the top of the script to taste:
+- **FREQ_LIST**: The centres of activity you wish to scan.
+- **SCAN_SPAN**: How far above and below the COA frequency to scan.
+
+### Source
+<RemoteCode language="js" url="https://raw.githubusercontent.com/RhinoLance/figaro-community/refs/heads/main/script-library/scan-coa.js" />
