@@ -119,38 +119,34 @@ const config: Config = {
             },
           ],
         },
-        /*{
+        {
           title: 'Community',
           items: [
             
 			{
-              label: 'Stack Overflow',
-              href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-            },
-            {
               label: 'Discord',
-              href: 'https://discordapp.com/invite/docusaurus',
+              href: 'https://groups.io/g/QRPLabs',
             },
             {
-              label: 'X',
-              href: 'https://x.com/docusaurus',
+              label: 'QRPLabs on Groups.io',
+              href: 'https://groups.io/g/QRPLabs',
             },
 			
           ],
         },
         {
-          title: 'More',
+          title: 'Get Figaro',
           items: [
             {
-              label: 'Blog',
-              to: '/blog',
+              label: 'Browser App',
+              href: 'https://app.figaro.conryclan.com',
             },
             {
-              label: 'GitHub',
-              href: 'https://github.com/rhinolance/figaro-community',
+              label: 'Android Play Store',
+              href: 'https://play.google.com/store/apps/details?id=com.rhinosw.figaro',
             },
           ],
-        },*/
+        },
       ],
       copyright: `Copyright © ${new Date().getFullYear()}, Inc. Built with Docusaurus.`,
     },

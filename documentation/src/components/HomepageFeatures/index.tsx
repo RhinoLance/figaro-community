@@ -7,13 +7,14 @@ type FeatureItem = {
   title: string;
   Svg?: React.ComponentType<React.ComponentProps<'svg'>>;
   Img?: string;
+  Video?: string;
   description: ReactNode;
 };
 
 const FeatureList: FeatureItem[] = [
   {
-   title: 'Easy to Use',
-    Img: 'img/3-tasks.png',
+   title: 'Made for Field Ops, Useful for All',
+    Img: 'img/Figaro-field.jpeg',
     description: (
       <>
         Simple, re-usable tasks are only a tap away, from setting the clock
@@ -24,37 +25,39 @@ const FeatureList: FeatureItem[] = [
     ),
   },
   {
-    title: 'Customizable',
-    Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
+    title: 'Unlocking the Power',
+    Video: 'video/qmx-scan-480.mp4',
     description: (
       <>
-        Figaro uses provides a simple scripting engine with JavaScript, allowing 
-		you to create tasks which are as simple or complex as you need.  And 
-		when you've created something cool, share it with the community!
+        Unlock the power of your QMX by adding new functionality, like
+		scanning, frequency hopping, setting a fixed qqrp power output per band, 
+		and more.  The possibilities are endless!
       </>
     ),
   },
   {
-    title: 'Unlock the power',
-    Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
+    title: 'A Platform for Hacking',
+    Img: "img/vsCode.png",
     description: (
       <>
-        Unlock the power of your QMX, especially for field users with where 
-		speed and simplicity are key.
+        Figaro's JavaScript engine is accessible to all.  Create tasks which are 
+		as simple or complex as you need.  And when you've created something 
+		cool, let the community see how far they can extend it!
       </>
     ),
   },
 ];
 
-function Feature({title, Svg, Img, description}: FeatureItem) {
+function Feature({title, Svg, Img, Video, description}: FeatureItem) {
   return (
     <div className={clsx('col col--4')}>
-      <div className="text--center">
-        {/* <img width="200"src={Img} /> */}
-      </div>
       <div className="text--center padding-horiz--md">
         <Heading as="h3">{title}</Heading>
         <p>{description}</p>
+      </div>
+	  <div className="text--center">
+        {Img && <img width="300" src={Img} style={{borderRadius: '8px'}} />}
+		{Video && <video width="335" src={Video} autoPlay loop muted playsInline style={{borderRadius: '8px'}} />}
       </div>
     </div>
   );

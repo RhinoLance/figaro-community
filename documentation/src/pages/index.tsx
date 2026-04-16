@@ -38,6 +38,20 @@ export default function Home(): ReactNode {
       <HomepageHeader />
       <main>
         <HomepageFeatures />
+
+		<hr></hr>
+
+		<div style={{textAlign: 'center', margin: '3em'}}>
+		  <Heading as="h2">The story behind Figaro</Heading>
+		  <p>
+			Read the story behind how Figaro came to be, and the vision for the future of the project.
+		  </p>
+		  <Link
+			className="button button--primary button--lg"
+			to="story">
+			Read the Story
+		  </Link>
+		</div>
       </main>
     </Layout>
   );
