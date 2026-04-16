@@ -75,3 +75,40 @@ You should observe your QMX returning to the initial frequency when done.
 ### Congratulations
 You can now read state, and save it for writing later.
 
+### Bonus: Multiple state values
+
+When requiring several state parameters, you may be able to use the 
+`IF` command to get multiple values in one hit.
+
+:::tip[IF: Get]
+
+IF: Get transceiver information (TS-480 format).
+Get: Returns a composite information string containing the state of the transceiver, as follows
+(excluding command ID and ; terminator character):
+
+<pre>
+	0-10 	Frequency in Hz
+	11-15 	N/A (Spaces)
+	16-20 	RIT offset in Hz (signed)
+	21 		RIT status (0=off, 1=on)		 	
+	22 		XIT status (0=off, 1=on)
+	23-25 	N/A (Memories)
+	26 		TX Status (0=RX, 1=TX)
+	27 		MODE (1=LSB, 2=USB, 3=CW, 6=FSK, 7=CWR, 9=FSK Reverse )
+	28 		RX VFO (0=A, 1=B)
+	29 		N/A
+	30 		Split status (0=off, 1=on)
+	31-32 	N/A
+	33 		N/A (Space)
+</pre>
+	
+:::
+
+It may then be used thus: 
+```js
+	const rawIF = (await sendCat(`IF;`)).substring(2);
+	const freq = rawIF.substring(0,10);
+	const vfo = rawIF.substring(28,29) == "0" ? "A" : "B";
+	const mode = rawIF.substring(27,28);
+```
+
