@@ -28,3 +28,13 @@
   --ifm-color-primary-lightest: #4fddbf;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
+
+/* control visual width of tabs in code blocks */
+pre[class*="language-"],
+pre[class*="language-"] > code,
+.theme-code-block pre,
+.markdown pre code {
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4; /* set desired tab width (e.g. 2, 4, 8) */
+}
