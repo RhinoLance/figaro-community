@@ -31,7 +31,9 @@ Get started by **connecting your radio to Figaro**.
 ### What you'll need
 
 - An amazing radio; QMX or QMX+.
-- A phone/tablet with Figaro installed
+- A phone/tablet with Figaro installed from the 
+<img src="/img/playstore-icon.png" height="20px" /> [**Play Store**](https://play.google.com/store/apps/details?id=com.rhinosw.figaro)
+
 **OR**
 - A modern browser pointing to [Figaro's Web App](https://app.figaro.conryclan.com/).
 
