@@ -3,7 +3,7 @@ sidebar_position: 2
 ---
 
 import lanceImg from './img/Lance.jpg';
-import margateImg from './img/margate.jpg';
+import margateImg from './img/Margate.jpg';
 
 # Team
 
