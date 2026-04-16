@@ -7,5 +7,11 @@ Start scanning the current band.
 Scanning may be stopped either by pressing the stop button, or by keying your 
 key, paddle or mic (anything which briefly puts the radio into TX mode);
 
+### Configuration
+Edit the following variables at the top of the script to taste:
+- **STOP_ON_TX**: Should scanning stop on TX?  ⚠️ Note that on some android devices
+the extra overhead of checking the TX state at a rate of 100 ms may lead to 
+lumpy scanning and TX state change being missed.
+
 ### Source
 <RemoteCode language="js" url="https://raw.githubusercontent.com/RhinoLance/figaro-community/refs/heads/main/script-library/scan.js" />
