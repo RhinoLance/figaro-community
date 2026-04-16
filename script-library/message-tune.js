@@ -6,120 +6,92 @@ MMMessages|Message 10=7032020|10114020|14044020|18088020|21044020
 
 const MMINDEX_MAX_PA_V = 'MMProtection|Max. PA voltage';
 const MMINDEX_FREQ_LIST = 'MMMessages|Message 10';
-const TUNE_PA_V = 5.00;
+const PA_V_TUNE = 5.00;
+const PA_V_OPERATE = 11.5;
 
-let interval, mode, power;
+let interval, vfo, mode, power, dispFreq;
 
-const saveSettings = () => {
-	return Promise.resolve(true)
-		.then( () => {
-			return sendCat(`MD;`);
-		})
-		.then((raw) => {
-			mode = raw.substring(2);
-		})
-		.then( () => {
-			return sendCat(`${MMINDEX_MAX_PA_V};`);
-		})
-		.then((raw) => {
-			power = raw.substr(2);
-		});	
-};
-
-const restoreSettings = () => {
-	sendCat(`MD${mode};`, false);
+const saveSettings = async () => {
 	
 	/*
-	There's a firmware bug where the retrieved PA voltage is 
-	ambiguous, so we set it to a known safe value rather than 
-	restoring the original value.
-
-	This will be fixed in a future firmware release, at which point 
-	we can restore the original value instead.
+	0-10 digits: IF frequency in Hz
+	11-16 N/A (Spaces)
+	17-22 RIT offset in Hz (signed)
+	23 RIT status (0=off, 1=on)
+	24 XIT status (0=off, 1=on)
+	25-27 N/A
+	28 TX Status (0=RX, 1=TX)
+	29 MODE
+	30 RX VFO (0=A, 1=B)
+	31 N/A
+	32 Split status (0=off, 1=on)
+	33-34 N/A
+	35 N/A (Space)
 	*/
-	sendCat(`${MMINDEX_MAX_PA_V}=11.5;`, false);
+
+	const rawIF = await sendCat(`IF;`);
+	vfo = rawIF.substring(30,31) == "0" ? "A" : "B";
+	mode = rawIF.substring(29,30);
+
+	power = (await sendCat(`${MMINDEX_MAX_PA_V};`)).substring(2);
+}
+
+const revertSettings = () => {
+	sendCat(`MD${mode};`, false);
+	sendCat(`${MMINDEX_MAX_PA_V}=${PA_V_OPERATE};`, false);
 };
 
-const initState = () => {
-	sendCat(`${MMINDEX_MAX_PA_V}=${TUNE_PA_V};`, false);
-	sendCat('MD3;', false);
-	return delay(100);
+const printSWR = async () => {
+	const raw = (await sendCat('SW;')).substring(2);
+	let val = raw / 100;
+	print( `${dispFreq}\n${val.toFixed(1)}` );
 };
 
-const retrieveFrequencies = () => {
-	return sendCat(`${MMINDEX_FREQ_LIST};`)
-		.then((raw) => {
-			return raw.substring(2)
-				.split('|')
-				.map(f => f.trim())
-				.filter(f => /^\d+$/.test(f))
-		});		
+const setBand = (freq) => {
+	const band = Math.floor(freq / 1000000);
+	return `${band} MHz`;
 };
 
-const printSWR = () => {
-	return sendCat('SW;')
-		.then((raw) => {
-			raw = raw.substring(2);
-			let val = raw / 100;
-			print(`${val.toFixed(2)}`);
-		});
+const tuneSetup = async () => {
+	await saveSettings();
+	sendCat(`${MMINDEX_MAX_PA_V}=${PA_V_TUNE};`, false);
+	sendCat('MD6;', false); // FSK
 };
 
-const tuneAndCheckFreqSWR = (frequency) => {
-
-	return Promise.resolve(true)
-		.then(() => {
-			sendCat(`FA${frequency};`, false);
-			return sendCat('FA;');
-		})
-		.then((raw) => {
-			
-			const freq = raw.substring(2);
-			if (parseInt(freq,10) !== parseInt(frequency,10)) {
-				log(`Failed to set frequency to ${frequency} Hz.`);
-			}
-			else {
-				return checkSWR();
-			}
-
-		});
+const tuneStart = () => {
+	sendCat('TX;', false);
+	sendCat('TA500;', false);
 };
 
-const checkSWR = () => {
-
-	interval = task.setInterval(printSWR, 300);
-
-	return Promise.resolve(true)
-		.then(() => sendCat('TX;', false))
-		.then(() => pause('play-pause', '#D63031'))
-		.then(() => sendCat('RX;', false))
-		.then(() => task.clearInterval(interval));
-};
-
-task.onCleanup(() => {
+const tuneStop = () => {
+	sendCat('TA0;', false);
+	delay(6);
 	sendCat('RX;', false);
-	delay(250);
-});
+}
 
-const runner = Promise.resolve(true)
-	.then(saveSettings)
-	.then(initState)
-	.then(retrieveFrequencies)
-	.then(freqList => {
-		
-		let chain = Promise.resolve();
+const tuneTeardown = () => {
+	task.clearInterval(interval);
+	revertSettings();
+};
 
-		freqList.map(freq => {
-			chain = chain.then(() => tuneAndCheckFreqSWR(freq));
-		});
+const retrieveFrequencies = async () => {
+	const raw = (await sendCat(`${MMINDEX_FREQ_LIST};`)).substring(2);
+	return raw.split('|')
+		.map(f => f.trim())
+		.filter(f => /^\d+$/.test(f));
+};
 
-		return chain;
+const freqList = await retrieveFrequencies();
 
-	})
-	.then(restoreSettings)
-	.catch((error) => {
-		log(`Error: ${error.message}`);
-	});
+await tuneSetup();
+interval = task.setInterval(printSWR, 500);
 
-delay(250);
-task.waitUntil(runner);
+for( const freq of freqList ) {
+	dispFreq = setBand(freq);
+	await sendCat(`F${vfo}${freq};`, false);
+	await tuneStart();
+	await pause('play-pause', '#D63031');
+	await tuneStop();	
+}
+
+tuneTeardown();

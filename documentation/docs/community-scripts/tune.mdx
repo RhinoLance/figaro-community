@@ -2,22 +2,22 @@ import RemoteCode from '@site/src/components/RemoteCode';
 
 # Tune Mode
 
-Transmit a low powered carrier, and displays the SWR.
+Transmit a low powered signal, and displays the SWR.
 
 1. The script saves the current mode, and power level*
-2. Drops the power to 1 W, and switches mode to CW.
-3. Enters TX mode and displays the SWR.
-4. When the ***Stop***(*Run*) button is pressed, switch back to RX and restore
-mode and power level.
+1. Drops the power to 5 W, and switches mode to DiGi.
+1. Enters TX mode and transmits a constant 500 Hz tone.
+1. Displays the SWR.
+1. When the ***Stop***(*Run*) button is pressed, switches back to RX and 
+restores settings.
 
 ### Notes
 
 - *QMX Firmware version 1.03.002 has a bug with reading the Max. PA 
-Voltage, therefor until it is resolved this script returns the Max. PA Voltage 
-to 5V when done, rather than the initial Max V.  Once you have installed it, you can edit the script and change
-to your preferred Max. V. setting.
-- SWR power is set at 1 V.  You will probably want to change this to 5 V or so
-once the script is added to a task.
+Voltage, therefor until it is resolved this script uses predefined voltages 
+for tune and normal operation.
+- Tune and operating voltages are set to 5 and 11.5 V respectively.  Adjust the 
+the variables at the top of the script to taste.
 
 
 ### Source

@@ -8,6 +8,12 @@
   text-align: center;
   position: relative;
   overflow: hidden;
+  /* hero background image (served from documentation/static/img) */
+  background-image: url('/img/hero_hartz.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  color: #fff;
 }
 
 @media screen and (max-width: 996px) {
@@ -20,4 +26,23 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* subtle dark overlay so white text stays readable */
+.heroBanner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  pointer-events: none;
+}
+
+/* ensure inner container content sits above the overlay */
+.heroBanner :global(.container) {
+  position: relative;
+  z-index: 1;
+}
+
+pre {
+  tab-size: 4;
 }
