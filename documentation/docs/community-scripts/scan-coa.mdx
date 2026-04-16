@@ -8,7 +8,30 @@ This script will cycle through list of COAs, scanning the
 prescribed frequency range around each one.
 
 Scanning may be stopped either by pressing the stop button, or by keying your 
-key, paddle or mic (anything which briefly puts the radio into TX mode);
+key, *dah* paddle or mic (anything which briefly puts the radio into TX mode);
+
+:::note
+
+Stopping the scan with the paddle was an interesting exercise.  The only way
+I could determine to do so was to poll the TX state of the tranceiver, but 
+for consistent behaviour the polling should be longer than the TX duration,
+lest the keying TX fall in the gap between two polls.  The way around this was
+to calculate the minimum expected duration of a keyed TX and poll fractionally 
+faster.
+
+The calculations are:
+- **t<sup>dit</sup>** = 60 / (50 * wpm)
+- **t<sup>dah</sup>** = 3 * t<sup>dit</sup>
+
+I decided a reasonable maximum speed was 35 wpm, which works out at:
+- **dit**: 34 ms
+- **dah**: 102 ms
+
+As such, I've set the TX monitor to poll at 100 ms intervals to cater for the 
+*dah* key.  One may still use the *dit* key, but with only a 1/3 chance of the
+scan stopping.
+
+:::
 
 ### Configuration
 Edit the following variables at the top of the script to taste:
