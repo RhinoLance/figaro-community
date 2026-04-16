@@ -55,7 +55,9 @@ review the ports in Device Manager, or the Mac/Linux equivilent.
 
 #### Android
 
-Every time you plug a USB cable into the radio, you will be prompted to allow 
-serial port access.  Unfortunately this must be done each time.  You will not 
-need to select a port however as Figaro will automatically cycle through all 
-ports loking for a QMX.
+When you connect your radio for the first time you will be prompted to allow
+access to the microphone.  This is referring to the the QMX's audio interface.
+Figaro doesn't use it, but because it's available on the USB port, we can't 
+connect to the USB, and it's serial interface, without that permission.  
+You won't need to select a port however as Figaro will automatically cycle 
+through all ports loking for a QMX.
