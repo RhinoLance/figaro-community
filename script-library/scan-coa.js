@@ -126,11 +126,11 @@ const monitorTx = () => {
 				resume();
 				cancelScan();
 			}
-		});
 
-		if (scanActive) {
-			txMonitorTimerId = task.setTimeout(checkTxStatus, 100);
-		}
+			if (scanActive) {
+				txMonitorTimerId = task.setTimeout(checkTxStatus, 100);
+			}
+		});
 	};
 	
 	checkTxStatus();
