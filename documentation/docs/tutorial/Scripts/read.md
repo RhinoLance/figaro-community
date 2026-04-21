@@ -2,7 +2,7 @@
 sidebar_position: 6
 ---
 
-# Reading State
+# Reading Radio State
 
 It is often usefull to retrieve state from the radio.  In this step you'll
 learn how to request state data.
