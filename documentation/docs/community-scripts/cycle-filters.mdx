@@ -1,0 +1,18 @@
+import RemoteCode from '@site/src/components/RemoteCode';
+
+# Cycle Filters
+
+Cycle through the pre-set CW filters.
+
+The script will retrieve a list of the radio's enabled filters, and cycle 
+through them on each run.
+
+e.g.  Assuming you've enabled 200, 300, 500 Hz filters, every time you run
+the script, it will cycle to the next highest filter.  
+
+200 -> 300 -> 500 -> None -> 200 -> 300 ...
+
+If that's confusing, I'll be clear after you've run it several times.
+
+### Source
+<RemoteCode language="js" url="https://raw.githubusercontent.com/RhinoLance/figaro-community/refs/heads/main/script-library/cycle-filters.js" />
