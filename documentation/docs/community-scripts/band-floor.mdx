@@ -1,11 +1,37 @@
+---
+title: Band Floor
+hide_title: true
+---
+
 import RemoteCode from '@site/src/components/RemoteCode';
+import ScriptPageHeader from '@site/src/components/ScriptPageHeader';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
-# Band Floor
+<ScriptPageHeader
+  title="Band Floor"
+  summary="Tune the radio to the bottom of the current band."
+  installLabel="Install Band Floor"
+  ftdFileName="band-floor.json"
+/>
 
-Tune the radio to the bottom of the current band.
+<Tabs
+	defaultValue="overview"
+	values={[
+		{label: 'Overview', value: 'overview'},
+		{label: 'Source Code', value: 'source'},
+	]}>
 
-**Note**: The script uses the Australian band plan, adjust the 
+<TabItem value="overview">
+
+**Note**: The script uses the Australian band plan, adjust the
 frequencies accordingly for your region.
 
-### Source
-<RemoteCode language="js" url="https://raw.githubusercontent.com/RhinoLance/figaro-community/refs/heads/main/script-library/band-floor.js" /> 
+</TabItem>
+
+<TabItem value="source">
+	### Source
+	<RemoteCode language="js" scriptLibraryFile="band-floor.js" />
+</TabItem>
+
+</Tabs>

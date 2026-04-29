@@ -1,8 +1,34 @@
+---
+title: Set Clock to Local
+hide_title: true
+---
+
 import RemoteCode from '@site/src/components/RemoteCode';
+import ScriptPageHeader from '@site/src/components/ScriptPageHeader';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
-# Set Clock to Local
+<ScriptPageHeader
+  title="Set Clock to Local"
+  summary="Set the radio's Real Time Clock to Local Time."
+  installLabel="Install Set Clock Local"
+  ftdFileName="set-clock-local.json"
+/>
 
-Set the radio's **Real Time Clock** to **Local Time**.
+<Tabs
+	defaultValue="overview"
+	values={[
+		{label: 'Overview', value: 'overview'},
+		{label: 'Source Code', value: 'source'},
+	]}>
 
-### Source
-<RemoteCode language="js" url="https://raw.githubusercontent.com/RhinoLance/figaro-community/refs/heads/main/script-library/set-clock-local.js" />
+<TabItem value="overview">
+
+</TabItem>
+
+<TabItem value="source">
+	### Source
+	<RemoteCode language="js" scriptLibraryFile="set-clock-local.js" />
+</TabItem>
+
+</Tabs>

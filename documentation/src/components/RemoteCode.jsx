@@ -1,21 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import CodeBlock from '@theme/CodeBlock';
+import { getEnvPaths } from '../models/Paths';
 
-export default function RemoteCode({ url, language = 'text' }) {
+export default function RemoteCode({ scriptLibraryFile: scriptFileName, language = 'text' }) {
 	const [text, setText] = useState('');
+	const fullPath = getEnvPaths().repo + scriptFileName;
 
 	useEffect(() => {
-		fetch(url)
-			.then(r => {
-			return r.status === 404
-				? fetch(url.replace('/main/', '/develop/'))
-				: r;
-			})
+		fetch(fullPath)
 			.then(r => r.text())
 			.then(setText);
-	}, [url]);
+	}, []);
 
-	const srcLink = url.replace('raw.githubusercontent.com', 'github.com').replace('/refs/heads/', '/blob/');
+	const srcLink = fullPath.replace('raw.githubusercontent.com', 'github.com').replace('/refs/heads/', '/blob/');
 
 	return (
 		<div style={{ marginBottom: '1rem' }}>
@@ -26,7 +23,7 @@ export default function RemoteCode({ url, language = 'text' }) {
 				<a href={srcLink} target="_blank" rel="noopener noreferrer">
 					{srcLink}.
 				</a>
-		</div>
+			</div>
 		</div>
 	
 	);

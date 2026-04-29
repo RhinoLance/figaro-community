@@ -1,8 +1,34 @@
+---
+title: Set Clock to UTC
+hide_title: true
+---
+
 import RemoteCode from '@site/src/components/RemoteCode';
+import ScriptPageHeader from '@site/src/components/ScriptPageHeader';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
-# Set Clock to UTC
+<ScriptPageHeader
+  title="Set Clock to UTC"
+  summary="Set the radio's Real Time Clock to UTC."
+  installLabel="Install Set Clock UTC"
+  ftdFileName="set-clock-utc.json"
+/>
 
-Set the radio's **Real Time Clock** to **UTC**
+<Tabs
+	defaultValue="overview"
+	values={[
+		{label: 'Overview', value: 'overview'},
+		{label: 'Source Code', value: 'source'},
+	]}>
 
-### Source
-<RemoteCode language="js" url="https://raw.githubusercontent.com/RhinoLance/figaro-community/refs/heads/main/script-library/set-clock-utc.js" />
+<TabItem value="overview">
+
+</TabItem>
+
+<TabItem value="source">
+	### Source
+	<RemoteCode language="js" scriptLibraryFile="set-clock-utc.js" />
+</TabItem>
+
+</Tabs>

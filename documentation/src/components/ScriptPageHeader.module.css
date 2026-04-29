@@ -1,0 +1,62 @@
+.header {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin: 1rem -16px 1.5rem -16px;
+  padding: 1.25rem;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  background-color: rgb(239, 241, 243);
+}
+
+@media (min-width: 996px) {
+  .header {
+    grid-template-columns: 1fr auto;
+    align-items: start;
+    gap: 1.5rem;
+  }
+}
+
+.kicker {
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ifm-color-primary-dark);
+}
+
+.title {
+  margin: 0.35rem 0 0;
+  font-size: clamp(1.65rem, 3vw, 2.25rem);
+  line-height: 1.15;
+}
+
+.summary {
+  margin: 0.7rem 0 0;
+  max-width: 65ch;
+  color: var(--ifm-color-emphasis-800);
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.installButton {
+  margin: 0;
+}
+
+.installButton a {
+  font-size: 0.82rem;
+}
+
+[data-theme='dark'] .header {
+  background:
+    radial-gradient(circle at 0% 0%, rgba(37, 194, 160, 0.2), transparent 45%),
+    radial-gradient(circle at 100% 100%, rgba(37, 194, 160, 0.14), transparent 40%),
+    var(--ifm-background-surface-color);
+}
+
+[data-theme='dark'] .kicker {
+  color: var(--ifm-color-primary-light);
+}

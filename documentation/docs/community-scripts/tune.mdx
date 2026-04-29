@@ -1,24 +1,49 @@
+---
+title: Tune Mode
+hide_title: true
+---
+
 import RemoteCode from '@site/src/components/RemoteCode';
+import ScriptPageHeader from '@site/src/components/ScriptPageHeader';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
-# Tune Mode
+<ScriptPageHeader
+  title="Tune Mode"
+  summary="Transmit a low powered signal, and display the SWR."
+  installLabel="Install Tune"
+  ftdFileName="tune.json"
+/>
 
-Transmit a low powered signal, and displays the SWR.
+<Tabs
+	defaultValue="overview"
+	values={[
+		{label: 'Overview', value: 'overview'},
+		{label: 'Source Code', value: 'source'},
+	]}>
 
-1. The script saves the current mode, and power level*
-1. Drops the power to 5 W, and switches mode to DiGi.
-1. Enters TX mode and transmits a constant 500 Hz tone.
-1. Displays the SWR.
-1. When the ***Stop***(*Run*) button is pressed, switches back to RX and 
-restores settings.
+<TabItem value="overview">
 
-### Notes
+	1. The script saves the current mode, and power level*
+	1. Drops the power to 5 W, and switches mode to DiGi.
+	1. Enters TX mode and transmits a constant 500 Hz tone.
+	1. Displays the SWR.
+	1. When the ***Stop***(*Run*) button is pressed, switches back to RX and
+	restores settings.
 
-- *QMX Firmware version 1.03.002 has a bug with reading the Max. PA 
-Voltage, therefor until it is resolved this script uses predefined voltages 
-for tune and normal operation.
-- Tune and operating voltages are set to 5 and 11.5 V respectively.  Adjust the 
-the variables at the top of the script to taste.
+	### Notes
 
+	- *QMX Firmware version 1.03.002 has a bug with reading the Max. PA
+	Voltage, therefor until it is resolved this script uses predefined voltages
+	for tune and normal operation.
+	- Tune and operating voltages are set to 5 and 11.5 V respectively.  Adjust the
+	the variables at the top of the script to taste.
 
-### Source
-<RemoteCode language="js" url="https://raw.githubusercontent.com/RhinoLance/figaro-community/refs/heads/main/script-library/tune.js" />
+</TabItem>
+
+<TabItem value="source">
+	### Source
+	<RemoteCode language="js" scriptLibraryFile="tune.js" />
+</TabItem>
+
+</Tabs>
