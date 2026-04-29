@@ -68,11 +68,11 @@ The script automatically matches `.js` files to `.json` files by name:
 
 ## Integration with Git
 
-### Pre-commit Hook (Optional)
+### Pre-commit Hook
 
-You can create a git pre-commit hook to automatically sync scripts before committing:
+The following git pre-commit hook to automatically sync scripts before committing:
 
-**File: `.git/hooks/pre-commit`** (or `.git/hooks/pre-commit.ps1` on Windows)
+**File: `.husky/pre-commit`** (or `.git/hooks/pre-commit.ps1` on Windows)
 
 ```bash
 #!/bin/bash

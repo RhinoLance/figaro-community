@@ -1,0 +1,8 @@
+#!/bin/bash
+cd "$(git rev-parse --git-dir)/../script-library" || exit 0
+node sync-scripts.js
+if [ $? -ne 0 ]; then
+    echo "Script sync failed. Please resolve and try again."
+    exit 1
+fi
+git add *.json

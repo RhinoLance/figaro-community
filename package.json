@@ -1,0 +1,27 @@
+{
+  "name": "figaro-community",
+  "version": "1.0.0",
+  "description": "<div align=\"center\">   <img src=\"docs/media/header_logo.png\" alt=\"Figaro Logo\" width=\"180\"/>",
+  "homepage": "https://github.com/RhinoLance/figaro-community#readme",
+  "bugs": {
+    "url": "https://github.com/RhinoLance/figaro-community/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RhinoLance/figaro-community.git"
+  },
+  "license": "UNLICENSED",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "husky": "^9.1.7"
+  }
+}
