@@ -1,8 +1,9 @@
 const MMINDEX_MAX_PA_V = 'MMProtection|Max. PA voltage';
+const MMINDEX_SWR_PROTECTION = 'MMProtection|SWR protection';
 const PA_V_TUNE = 5.00;
 const PA_V_OPERATE = 11.5;
 
-let interval, freq, vfo, mode, power, vol, dispFreq;
+let interval, freq, vfo, mode, power, vol, dispFreq, swrProtection;
 
 const saveSettings = async () => {
 	/*
@@ -35,6 +36,7 @@ const saveSettings = async () => {
 	mode = rawIF.substring(27,28);
 
 	power = (await sendCat(`${MMINDEX_MAX_PA_V};`)).substring(2);
+	swrProtection = (await sendCat(`${MMINDEX_SWR_PROTECTION};`)).substring(2);
 	vol = (await sendCat(`AG;`)).substring(2);
 
 
@@ -44,6 +46,7 @@ const saveSettings = async () => {
 const revertSettings = () => {
 	sendCat(`MD${mode};`, false);
 	sendCat(`${MMINDEX_MAX_PA_V}=${PA_V_OPERATE};`, false);
+	sendCat(`${MMINDEX_SWR_PROTECTION}=${swrProtection};`, false);
 	sendCat(`AG${vol};`, false); // restore AF gain
 
 };

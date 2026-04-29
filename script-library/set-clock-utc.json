@@ -1,6 +1,9 @@
 {
   "title": "Set Clock to UTC",
   "description": "Set Clock to UTC time",
-  "tags": ["time", "clock", "utc"],
-  "created": "2026-03-21"
+  "script": "const now = new Date();\r\n\r\nconst pad = n => String(n).padStart(2, \"0\");\r\n\r\nconst timestampUTC =\r\n\tpad(now.getUTCHours()) +\r\n\tpad(now.getUTCMinutes()) +\r\n\tpad(now.getUTCSeconds());\r\n\r\nsendCat(`TM${timestampUTC};`, false);",
+  "autoRunOnConnect": true,
+  "autoRunPriority": 100,
+  "autoLock": false,
+  "runLocked": false
 }

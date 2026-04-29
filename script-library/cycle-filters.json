@@ -1,7 +1,9 @@
 {
   "title": "Cycle Filters",
   "description": "Cycle through the available filters",
-  "tags": ["filter"],
-  "created": "2026-04-17",
-  "author": "VK7TO"
+  "script": "console.log(\"Filter cycle script loaded\");\r\n\r\nconst FILTER_LIST = [\"50\", \"100\", \"150\", \"200\", \"250\", \"300\", \"400\", \"500\"];\r\n\r\nlet scanTimerId;\r\nlet txMonitorTimerId;\r\n\r\nlet resume;\r\n\r\nconst getEnabledFilters = async () => {\r\n\t\r\n\tconst availableFilters = [\"None\"];\r\n\r\n\tfor( let cI=0; cI<FILTER_LIST.length; cI++) {\r\n\t\tconst response = await sendCat(`MMCW|Choose filters|${cI};`);\r\n\r\n\t\tif( response == \"MMENABLED\") {\r\n\t\t\tavailableFilters.push(FILTER_LIST[cI]);\r\n\t\t}\r\n\t}\r\n\r\n\treturn availableFilters;\r\n};\r\n\r\nconst getActiveFilter = async () => {\r\n\treturn (await sendCat(\"MMCW|CW passband;\")).substring(2);\r\n}\r\n\r\nconst setFilter = (filter) => {\r\n\tconst cmd  = `MMCW|CW passband=${filter};`;\r\n\t//need to write the command twice to ensure the filter is set, \r\n\t// seems to be a quirk of the CAT interface for this command\r\n\treturn sendCat(cmd+cmd, false);\r\n}\r\n\r\nconst availableFilters = await getEnabledFilters();\r\nconst currentFilter = await getActiveFilter();\r\nconst currentIndex = availableFilters.indexOf(currentFilter);\r\nconst nextIndex = (currentIndex + 1) % availableFilters.length;\r\nconst nextFilter = availableFilters[nextIndex];\r\n\r\nsetFilter(nextFilter);\r\n\r\nsetTitle(`${context.task.title} [${nextFilter}]`);\r\nsetDescription(`Filter options: ${availableFilters .join(\" | \")}`);",
+  "autoRunOnConnect": false,
+  "autoRunPriority": 0,
+  "autoLock": false,
+  "runLocked": false
 }

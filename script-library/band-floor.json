@@ -1,7 +1,9 @@
 {
   "title": "Band floor",
   "description": "Tune to the bottom of the current band",
-  "tags": ["tuning"],
-  "created": "2026-04-07",
-  "author": "VK7TO"
+  "script": "const FREQ_STEP = 100; // 100Hz step, adjust as needed\r\nconst SCAN_SPEED = 100; // 100ms between frequency changes, adjust as needed\r\n\r\nlet freq =0;\r\nlet scanIntervalId;\r\nlet vfo;\r\n\r\n// array of bands' MHz and lowest frequencies in Hz\r\nconst bandFloors = [\r\n\t{MHz: 1, floor: 1800000},\r\n\t{MHz: 3, floor: 3500000},\r\n\t{MHz: 5, floor: 5351500},\r\n\t{MHz: 7, floor: 7000000},\r\n\t{MHz: 10, floor: 10100000},\r\n\t{MHz: 14, floor: 14000000},\r\n\t{MHz: 18, floor: 18068000},\r\n\t{MHz: 21, floor: 21000000},\r\n\t{MHz: 24, floor: 24890000},\r\n\t{MHz: 28, floor: 28000000},\r\n\t{MHz: 50, floor: 50000000}\r\n]\r\n\r\nconst getVFO = () => {\r\n\treturn sendCat(\"FR;\")\r\n\t.then( v => vfo = parseInt(v.substring(2)) == 0 ? \"A\" : \"B\");\r\n};\r\n\r\nconst initFreq = () =>{\r\n\treturn sendCat(`F${vfo};`)\r\n\t\t.then( v=> freq = parseInt(v.substring(2)));\r\n};\r\n\r\nconst setFreq = () => {\r\n\t\r\n\tconst bandFloor = Math.floor(freq / 1000000);\r\n\tconst band = bandFloors.find(b => b.MHz === bandFloor);\r\n\r\n\tfreq = band.floor;\r\n\tsendCat(`F${vfo}${freq};`, false);\r\n};\r\n\r\nconst runner = Promise.resolve()\r\n\t.then( getVFO )\r\n\t.then( initFreq )\r\n\t.then( setFreq );\r\n\t\r\n\ttask.waitUntil(runner);",
+  "autoRunOnConnect": false,
+  "autoRunPriority": 0,
+  "autoLock": false,
+  "runLocked": false
 }

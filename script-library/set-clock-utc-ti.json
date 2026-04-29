@@ -1,0 +1,10 @@
+{
+  "title": "TEST: Set Clock to UTC Time",
+  "description": "Sets the device clock to UTC time.",
+  "script": "const now = new Date();\n\nconst pad = n => String(n).padStart(2, \"0\");\n\nconst timestampUTC =\n\tpad(now.getUTCHours()) +\n\tpad(now.getUTCMinutes()) +\n\tpad(now.getUTCSeconds());\n\nsendCat(`TM${timestampUTC};`, false);",
+  "color": "#0099FF",
+  "autoRunOnConnect": false,
+  "autoRunPriority": 0,
+  "autoLock": false,
+  "runLocked": false
+}

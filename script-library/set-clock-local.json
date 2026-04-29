@@ -1,6 +1,9 @@
 {
   "title": "Set Clock to local",
   "description": "Set Clock to local time",
-  "tags": ["time", "clock"],
-  "created": "2026-03-21"
+  "script": "const now = new Date();\r\n\r\nconst pad = n => String(n).padStart(2, \"0\");\r\n\r\nconst timestamp =\r\n\tpad(now.getHours()) +\r\n\tpad(now.getMinutes()) +\r\n\tpad(now.getSeconds());\r\n\r\nsendCat(`TM${timestamp};`, false);",
+  "autoRunOnConnect": false,
+  "autoRunPriority": 0,
+  "autoLock": false,
+  "runLocked": false
 }
