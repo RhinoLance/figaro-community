@@ -1,0 +1,65 @@
+---
+sidebar_position: 1
+---
+
+import TaskDefinitionBuilder from '@site/src/components/TaskDefinitionBuilder';
+
+# Publishing Tasks
+
+Publishing tasks for others to install is a simple affair.
+1.  Create a task definition file containing your script and name, description 
+etc.
+2.  Store it in a publically accessible location with a couple of links pointing
+to it.
+
+## 1. Creating a Figaro Task Definition (FTD) file.
+
+The FTD is simply a JSON file conforming to the following schema:
+```js
+interface ITask {
+	title: string;
+	description: string;
+	script: string; 			//escaped string
+	color?: string;				//hex RGB, e.g. #CC0000
+	autoRunOnConnect: boolean;
+	autoRunPriority: number;
+	autoLock: boolean;
+	runLocked: boolean;
+}
+```
+
+Use this interactive builder to fill out `ITask` values and preview the JSON output in real time.
+
+<TaskDefinitionBuilder />
+
+## 2. Hosting and publishing installation links.
+
+Script files are installed in Figaro via deep linking, which differs slightly
+depending if figaro is being run from a browser or the Android app.
+
+### Install to Browser
+`<a href="https://app.figaro.conryclan.com?INSTALL_TASK=<path-to-json>" target="figaro:app">Install task</a>`
+
+### Install to Android App
+`<a href="figaro://open?INSTALL_TASK=<path-to-json>">Install task</a>`
+
+### Common link
+The following script may be used to install the FTD regardless of platform.
+
+```html
+<button id="installBtn">Install My Script</button>
+
+<script>
+	const isAndroid = /android/i.test(navigator.userAgent);
+	const urlPrefix = isAndroid
+		? "figaro://open?"
+		: "https://app.figaro.conryclan.com?";
+
+	const url = urlPrefix + "INSTALL_TASK=<path-to-json>"
+
+	document.getElementById("installBtn").addEventListener("click", () => {
+		window.open(url, "figaro:app");
+	});
+</script>
+
+```
