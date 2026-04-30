@@ -71,6 +71,35 @@ When done, you new task should look something like this:
 
 ![alt text](image.png)
 
+If you've not yet done so, update the rest of the fields thus:
+
+- **Name**: A short name for the task.  Enter: "Set 7.300".
+- **Description**: A one line explanation for what the script does.  Enter: 
+"Set the QMX freq to 7.300 kHz".
+- **Script**:  This is where you'll paste your script.  Tapping/clicking will 
+open a large dialog for easy editing.  Close when you're done.
+- **Task colour**:  Select a colour to visually distinguish tasks in your list.
+A good practice is to use Red or Orange for any script which will put your radio
+into TX mode, as a reminder to ensure you've got an antenna/dummy load connected
+first.
+- **Auto-run on connect**:  Enable if you want Figaro to run the script 
+when a connection with your radio is established.
+- **Priority**:  If Auto-run is enabled, the priority determines the order in 
+which Auto-run tasks will execute.  We can leave it as the default.
+- **Auto-lock**: If enabled, the task must be armed before it may be run. This 
+is usefull for preventing accidental execution of tasks.
+**Note** that this is a UI lock only. If both Auto-run and Auto-lock are 
+enabled, the script will still execute as Auto-run’able without being armed.
+
+:::tip
+
+If you wish to go back and edit your task, do so by:
+
+- **Android**: Swiping the task left.
+- **Web**: Right clicking the task.
+
+:::
+
 Now save your script and try running it.
 
 ### Congratulations

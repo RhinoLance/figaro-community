@@ -1,6 +1,7 @@
 ---
-title: Set Clock to Local
+title: Band Floor
 hide_title: true
+description: Tune the radio to the bottom of the current band.
 ---
 
 import RemoteCode from '@site/src/components/RemoteCode';
@@ -9,10 +10,10 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 <ScriptPageHeader
-  title="Set Clock to Local"
-  summary="Set the radio's Real Time Clock to Local Time."
-  installLabel="Install Set Clock Local"
-  ftdFileName="set-clock-local.json"
+  title="Band Floor"
+  summary="Tune the radio to the bottom of the current band."
+  installLabel="Install Band Floor"
+  ftdFileName="band-floor.json"
 />
 
 <Tabs
@@ -24,11 +25,14 @@ import TabItem from '@theme/TabItem';
 
 <TabItem value="overview">
 
+**Note**: The script uses the Australian band plan, adjust the
+frequencies accordingly for your region.
+
 </TabItem>
 
 <TabItem value="source">
 	### Source
-	<RemoteCode language="js" scriptLibraryFile="set-clock-local.js" />
+	<RemoteCode language="js" scriptLibraryFile="band-floor.js" />
 </TabItem>
 
 </Tabs>
