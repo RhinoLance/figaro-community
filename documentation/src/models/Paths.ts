@@ -27,7 +27,7 @@ export function getEnvPaths() {
 
 		return {
 			appAndroid: deploymentUrls.figaro.appDev,
-			appWeb: deploymentUrls.figaro.webDev,
+			appWeb: deploymentUrls.figaro.webLocalDev,
 			community: deploymentUrls.community.devLocal,
 			repo: deploymentUrls.community.repo.local,
 		};

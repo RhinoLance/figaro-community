@@ -2,6 +2,7 @@ import React from 'react';
 import { getEnvPaths } from '../models/Paths';
 import { Button, ButtonGroup, ClickAwayListener, Grow, MenuItem, MenuList, Paper, Popper } from '@mui/material';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import LinkIcon from '@mui/icons-material/Link';
 
 type TUserAgentWithUAData = Navigator & { userAgentData?: { mobile: boolean } };
 
@@ -22,7 +23,8 @@ export default function InstallTaskButton({
 
 	const options = [
 		{ title: 'Install to Web', url: webPrefix + suffix, target: "figaro:app" },
-		{ title: 'Install to Android App', url: androidPrefix + suffix, target: "_self" }
+		{ title: 'Install to Android App', url: androidPrefix + suffix, target: "_self" },
+		{ title: 'Open FTD in new tab', url: ftdPath, target: "_blank" }
 	];
 
 	const navigatorWithUAData = navigator as TUserAgentWithUAData;
@@ -45,9 +47,12 @@ export default function InstallTaskButton({
 	const [open, setOpen] = React.useState(false);
 	const anchorRef = React.useRef<HTMLDivElement>(null);
 	const [selectedIndex, setSelectedIndex] = React.useState(1);
+	const [activeLink, setActiveLink] = React.useState<string>(
+		options[0].url
+	);
 
 	const handleClick = () => {
-		window.open(options[selectedIndex].url, 
+		window.open(options[selectedIndex].url,
 			options[selectedIndex].target);
 	};
 
@@ -75,7 +80,7 @@ export default function InstallTaskButton({
 	};
 
 	return (
-		<React.Fragment>
+		<div style={{ display: 'flex', flexDirection: 'column' }}>
 			<ButtonGroup
 				variant="contained"
 				ref={anchorRef}
@@ -115,7 +120,7 @@ export default function InstallTaskButton({
 									{options.map((option, index) => (
 										<MenuItem
 											key={option.title}
-											disabled={index === 2}
+											//disabled={index === 2}
 											selected={index === selectedIndex}
 											onClick={(event) => handleMenuItemClick(event, index)}
 										>
@@ -128,6 +133,6 @@ export default function InstallTaskButton({
 					</Grow>
 				)}
 			</Popper>
-		</React.Fragment>
+		</div>
 	);
 }
