@@ -99,6 +99,16 @@ const config: Config = {
           position: 'left',
           label: 'Community',
         },
+        {
+          type: 'docSidebar',
+          sidebarId: 'communitySidebar',
+          position: 'left',
+          label: 'Community',
+        },
+		{
+			type: 'custom-VersionNavbarItem',
+			position: 'right'
+		},
         //{to: '/blog', label: 'Blog', position: 'left'},
         {
           href: 'https://github.com/rhinolance/figaro-community',
