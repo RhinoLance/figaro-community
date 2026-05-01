@@ -28,7 +28,7 @@ export default function InstallTaskButton({
 	const webPrefix = `${envPaths.appWeb}?`;
 	const suffix = `INSTALL_TASK=${encodeURIComponent(ftdPath)}`;
 
-	const optionList= [
+	let optionList= [
 		{ title: 'Install to Web', url: webPrefix + suffix, target: "figaro:app" },
 		{ title: 'Install to Android App', url: androidPrefix + suffix, target: "_self" },
 		{ title: 'Open FTD in new tab', url: ftdPath, target: "_blank" }
@@ -55,13 +55,13 @@ export default function InstallTaskButton({
 
 		const isAndroid = isAndroidOptions.some(v => v);
 		
-		optionList.sort((a, b) => {
-			if (isAndroid) {
-				return a.title < b.title ? 1 : -1; // Android option first
-			} else {
-				return a.title < b.title ? -1 : 1; // Web option first
-			}
-		});
+		
+		
+		if (isAndroid) {
+			optionList = [optionList[1], optionList[0], optionList[2]]; // Android option first
+		} else {
+			optionList = [optionList[0], optionList[1], optionList[2]]; // Web option first
+		}
 
 		setActiveOption(optionList[0]);
 
@@ -78,6 +78,7 @@ export default function InstallTaskButton({
 		index: number,
 	) => {
 		setSelectedIndex(index);
+		setActiveOption(optionList[index]);
 		setOpen(false);
 	};
 
