@@ -21,24 +21,12 @@ export default function InstallTaskButton({
 }: InstallTaskButtonProps) {
 	
 
-	const envPaths = getEnvPaths();
-	const ftdPath = envPaths.repo + ftdFileName;
-
-	const androidPrefix = `${envPaths.appAndroid}://open?`;
-	const webPrefix = `${envPaths.appWeb}?`;
-	const suffix = `INSTALL_TASK=${encodeURIComponent(ftdPath)}`;
-
-	let optionList= [
-		{ title: 'Install to Web', url: webPrefix + suffix, target: "figaro:app" },
-		{ title: 'Install to Android App', url: androidPrefix + suffix, target: "_self" },
-		{ title: 'Open FTD in new tab', url: ftdPath, target: "_blank" }
-	];
-
 	const [open, setOpen] = React.useState(false);
 	const anchorRef = React.useRef<HTMLDivElement>(null);
 	const [selectedIndex, setSelectedIndex] = React.useState(1);
 	const [activeOption, setActiveOption] = React.useState<InstallOption>(
 		{ title: '', url: '', target: '' });
+	const [optionList, setOptionList] = React.useState<InstallOption[]>([]);
 
 	useEffect(() => {
 
@@ -46,6 +34,21 @@ export default function InstallTaskButton({
 			return;
 		}
 		
+		
+		const envPaths = getEnvPaths();
+		const ftdPath = envPaths.repo + ftdFileName;
+
+		const androidPrefix = `${envPaths.appAndroid}://open?`;
+		const webPrefix = `${envPaths.appWeb}?`;
+		const suffix = `INSTALL_TASK=${encodeURIComponent(ftdPath)}`;
+
+		let optionList= [
+			{ title: 'Install to Web', url: webPrefix + suffix, target: "figaro:app" },
+			{ title: 'Install to Android App', url: androidPrefix + suffix, target: "_self" },
+			{ title: 'Open FTD in new tab', url: ftdPath, target: "_blank" }
+		];
+
+		setOptionList(optionList);
 		const navigatorWithUAData = navigator as TUserAgentWithUAData;
 		const isAndroidOptions: boolean[] = [
 			typeof navigator !== 'undefined' && /android/i.test(navigator.userAgent),

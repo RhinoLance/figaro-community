@@ -23,15 +23,16 @@ export const deploymentUrls = {
 
 export function getEnvPaths() {
 
-	const retObj = {};
+	let retObj = {};
+	const hostname = typeof window !== 'undefined' ? window.location.hostname : 'figaro.conryclan.com';
 
-	switch (window.location.hostname) {
+	switch (hostname) {
 		case 'figaro.conryclan.com':
 			retObj = {
 				appAndroid: deploymentUrls.figaro.appProd,
 				appWeb: deploymentUrls.figaro.webProd,
 				community: deploymentUrls.community.prod,
-				repo: deploymentUrls.community.repo.main + '/script-library/',
+				repo: deploymentUrls.community.repo.main + 'script-library/',
 			};
 			break;
 		
@@ -40,17 +41,19 @@ export function getEnvPaths() {
 				appAndroid: deploymentUrls.figaro.appProd,
 				appWeb: deploymentUrls.figaro.webDev,
 				community: deploymentUrls.community.dev,
-				repo: deploymentUrls.community.repo.develop + '/script-library/',
+				repo: deploymentUrls.community.repo.develop + 'script-library/',
 			};
 			break;
 		
 		default:
-			
+
 			retObj = {
-					appAndroid: deploymentUrls.figaro.appDev,
-					appWeb: deploymentUrls.figaro.webLocalDev,
-					community: deploymentUrls.community.devLocal,
-					repo: deploymentUrls.community.repo.local,
-				};
-			}
+				appAndroid: deploymentUrls.figaro.appDev,
+				appWeb: deploymentUrls.figaro.webLocalDev,
+				community: deploymentUrls.community.devLocal,
+				repo: deploymentUrls.community.repo.local,
+			};
+		}
+
+	return retObj;
 	}
