@@ -4,6 +4,8 @@ import type * as Preset from '@docusaurus/preset-classic';
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
+const isLocalDevStart = process.argv.includes('start');
+
 const config: Config = {
   title: 'Figaro',
   tagline: 'QMX Automation',
@@ -34,6 +36,9 @@ const config: Config = {
     defaultLocale: 'en',
     locales: ['en'],
   },
+
+  // Expose script-library files only during local `docusaurus start`; do not ship them in production builds.
+  staticDirectories: ['static', ...(isLocalDevStart ? ['../script-library'] : [])],
 
   presets: [
     [

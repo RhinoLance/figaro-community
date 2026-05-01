@@ -1,0 +1,72 @@
+---
+title: Tune Multiple Frequencies
+hide_title: true
+description: Transmit a low powered signal and display SWR for a series of frequencies.
+---
+
+import RemoteCode from '@site/src/components/RemoteCode';
+import ScriptPageHeader from '@site/src/components/ScriptPageHeader';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<ScriptPageHeader
+  title="Tune Multiple Frequencies"
+  summary="Transmit a low powered signal and display SWR for a series of frequencies."
+  installLabel="Install Tune Message"
+  ftdFileName="message-tune.json"
+/>
+
+<Tabs
+	defaultValue="overview"
+	values={[
+		{label: 'Overview', value: 'overview'},
+		{label: 'Source Code', value: 'source'},
+	]}>
+
+<TabItem value="overview">
+
+Transmit a low powered signal, and displays the SWR.
+
+1. The script saves the current mode, and power level*
+1. Drops the power to 5 W, and switches mode to DiGi.
+1. Retrieves the list of frequencies from the memory.
+1. Enters TX mode and transmits a constant 500 Hz tone.
+1. Displays the SWR.
+1. When the ***Continue***(*Run*) button is pressed, changes to the next freq.
+1. After all frequencies have been checked, switches back to RX and
+restores settings.
+
+### Notes
+
+- *QMX Firmware version 1.03.002 has a bug with reading the Max. PA
+Voltage, therefor until it is resolved this script uses predefined voltages
+for tune and normal operation.
+- Tune and operating voltages are set to 5 and 11.5 V respectively.  Adjust the
+the variables at the top of the script to taste.
+
+### Setup
+Enter a series of frequencies into a memory slot.  This script uses mem:10.
+You may choose any memory slot, and update the script accordingly by setting
+*MMINDEX_FREQ_LIST*.
+
+The frequencies should be in the format of
+`freq1|freq2|freq3|...|freqN`
+
+e.g.
+`7032000|10114000|14044000|18088000|21044000`
+
+:::tip
+
+The simplest way to set your common frequencies is to enter them via the
+QMX terminal.
+
+:::
+
+</TabItem>
+
+<TabItem value="source">
+	### Source
+	<RemoteCode language="js" scriptLibraryFile="message-tune.js" />
+</TabItem>
+
+</Tabs>

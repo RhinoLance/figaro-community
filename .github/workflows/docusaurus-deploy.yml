@@ -4,7 +4,7 @@ on:
   push:
     branches: 
       - main
-      - deploy-setup
+      - develop
   workflow_dispatch:
 
 concurrency:
@@ -46,5 +46,14 @@ jobs:
           chmod 600 ~/.ssh/id_ed25519
           ssh-keyscan figaro.conryclan.com >> ~/.ssh/known_hosts
 
+      - name: Set deploy paths
+        shell: bash
+        run: |
+          if [[ "${GITHUB_REF}" == refs/heads/main ]]; then
+            echo "DEPLOY_URL=figaro.conryclan.com" >> "$GITHUB_ENV"
+          else
+            echo "DEPLOY_URL=dev.figaro.conryclan.com" >> "$GITHUB_ENV"
+          fi
+
       - name: deploy to conryclan
-        run: rsync -avz --delete documentation/build/ outerplanet@figaro.conryclan.com:figaro.conryclan.com/
+        run: rsync -avz --delete documentation/build/ outerplanet@figaro.conryclan.com:$DEPLOY_URL/

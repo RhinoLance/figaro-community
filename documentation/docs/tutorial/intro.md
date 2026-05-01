@@ -7,9 +7,6 @@ sidebar_position: 1
 
 :::warning
 
-Figaro is a labour of love, no warranty, implied or express is provided.
-
-
 The only intelligence involved in deciding if a series of CAT commands are safe 
 to run on your radio is yours.
 

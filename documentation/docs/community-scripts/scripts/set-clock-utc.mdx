@@ -1,0 +1,35 @@
+---
+title: Set Clock to UTC
+hide_title: true
+description: Set the radio's Real Time Clock to UTC.
+---
+
+import RemoteCode from '@site/src/components/RemoteCode';
+import ScriptPageHeader from '@site/src/components/ScriptPageHeader';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<ScriptPageHeader
+  title="Set Clock to UTC"
+  summary="Set the radio's Real Time Clock to UTC."
+  installLabel="Install Set Clock UTC"
+  ftdFileName="set-clock-utc.json"
+/>
+
+<Tabs
+	defaultValue="overview"
+	values={[
+		{label: 'Overview', value: 'overview'},
+		{label: 'Source Code', value: 'source'},
+	]}>
+
+<TabItem value="overview">
+
+</TabItem>
+
+<TabItem value="source">
+	### Source
+	<RemoteCode language="js" scriptLibraryFile="set-clock-utc.js" />
+</TabItem>
+
+</Tabs>

@@ -1,0 +1,35 @@
+---
+title: Set Clock to Local
+hide_title: true
+description: Set the radio's Real Time Clock to Local Time.
+---
+
+import RemoteCode from '@site/src/components/RemoteCode';
+import ScriptPageHeader from '@site/src/components/ScriptPageHeader';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<ScriptPageHeader
+  title="Set Clock to Local"
+  summary="Set the radio's Real Time Clock to Local Time."
+  installLabel="Install Set Clock Local"
+  ftdFileName="set-clock-local.json"
+/>
+
+<Tabs
+	defaultValue="overview"
+	values={[
+		{label: 'Overview', value: 'overview'},
+		{label: 'Source Code', value: 'source'},
+	]}>
+
+<TabItem value="overview">
+
+</TabItem>
+
+<TabItem value="source">
+	### Source
+	<RemoteCode language="js" scriptLibraryFile="set-clock-local.js" />
+</TabItem>
+
+</Tabs>

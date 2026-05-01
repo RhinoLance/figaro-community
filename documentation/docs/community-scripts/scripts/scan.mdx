@@ -1,0 +1,44 @@
+---
+title: Scan
+hide_title: true
+description: Start scanning the current band.
+---
+
+import RemoteCode from '@site/src/components/RemoteCode';
+import ScriptPageHeader from '@site/src/components/ScriptPageHeader';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<ScriptPageHeader
+  title="Scan"
+  summary="Start scanning the current band."
+  installLabel="Install Scan"
+  ftdFileName="scan.json"
+/>
+
+<Tabs
+	defaultValue="overview"
+	values={[
+		{label: 'Overview', value: 'overview'},
+		{label: 'Source Code', value: 'source'},
+	]}>
+
+<TabItem value="overview">
+
+Scanning may be stopped either by pressing the stop button, or by keying your
+key, paddle or mic (anything which briefly puts the radio into TX mode);
+
+### Configuration
+Edit the following variables at the top of the script to taste:
+- **STOP_ON_TX**: Should scanning stop on TX?  ⚠️ Note that on some android devices
+the extra overhead of checking the TX state at a rate of 100 ms may lead to
+lumpy scanning and TX state change being missed.
+
+</TabItem>
+
+<TabItem value="source">
+	### Source
+	<RemoteCode language="js" scriptLibraryFile="scan.js" />
+</TabItem>
+
+</Tabs>

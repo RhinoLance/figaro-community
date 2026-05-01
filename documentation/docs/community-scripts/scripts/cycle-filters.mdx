@@ -1,0 +1,48 @@
+---
+title: Cycle Filters
+hide_title: true
+description: Cycle through the pre-set CW filters.
+---
+
+import RemoteCode from '@site/src/components/RemoteCode';
+import ScriptPageHeader from '@site/src/components/ScriptPageHeader';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<ScriptPageHeader
+  title="Cycle Filters"
+  summary="Cycle through the pre-set CW filters."
+  installLabel="Install Cycle Filters"
+  ftdFileName="cycle-filters.json"
+/>
+
+<Tabs
+	defaultValue="overview"
+	values={[
+		{label: 'Overview', value: 'overview'},
+		{label: 'Source Code', value: 'source'},
+	]}>
+
+<TabItem value="overview">
+
+The script will retrieve a list of the radio's enabled filters, and cycle
+through them on each run.
+
+e.g.  Assuming you've enabled 200, 300, 500 Hz filters, every time you run
+the script, it will cycle to the next highest filter.
+
+200 -> 300 -> 500 -> None -> 200 -> 300 ...
+
+If that's confusing, I'll be clear after you've run it several times.
+
+Once run, the task's title will be appended with the active filter, with the
+available filters set in the description.
+
+</TabItem>
+
+<TabItem value="source">
+	### Source
+	<RemoteCode language="js" scriptLibraryFile="cycle-filters.js" />
+</TabItem>
+
+</Tabs>
