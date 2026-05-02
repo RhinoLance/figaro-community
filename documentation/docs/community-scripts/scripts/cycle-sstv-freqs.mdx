@@ -1,0 +1,62 @@
+---
+title: Cycle SSTV Freqs
+hide_title: true
+description: Cycle through pre-set SSTV frequencies.
+---
+
+import RemoteCode from '@site/src/components/RemoteCode';
+import ScriptPageHeader from '@site/src/components/ScriptPageHeader';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<ScriptPageHeader
+  title="Cycle SSTV Frequencies"
+  summary="Cycle through pre-set SSTV frequencies."
+  installLabel="Install Cycle Filters"
+  ftdFileName="cycle-sstv-freqs.json"
+/>
+
+<Tabs
+	defaultValue="overview"
+	values={[
+		{label: 'Overview', value: 'overview'},
+		{label: 'Source Code', value: 'source'},
+	]}>
+
+<TabItem value="overview">
+
+The script will cycle through the common SSTV frequencies from 80 to 10 m.  
+Each time the script is run, the next frequency in the list will be set.
+
+The correct sideband will also be set based on the frequency.
+
+## Configuration
+
+Uncomment any SSTV frequencies you're not interested in.
+```js
+const FREQ_LIST = [
+	//3.640,
+	7.171,
+	10,132
+	14.233, 
+	21.340, 
+	//24.927, 
+	//28.680
+];
+```
+
+:::note
+Any bands for which your QMX is not configured will be automatically skipped.
+As such, if you own several QMXs which cover different bands, there's no need
+to edit the config, or create another script when you switch radios.
+:::
+
+
+</TabItem>
+
+<TabItem value="source">
+	### Source
+	<RemoteCode language="js" scriptLibraryFile="cycle-sstv-freqs.js" />
+</TabItem>
+
+</Tabs>
