@@ -2,7 +2,7 @@ export const deploymentUrls = {
 	figaro: {
 		webProd: 'https://app.figaro.conryclan.com/',
 		webDev: 'https://dev.app.figaro.conryclan.com/',
-		webLocalDev: 'http://10.1.8.108:8080/',
+		webLocalDev: 'https://10.1.8.108:8080/',
 		appProd: 'figaro',
 		appDev: 'figaro-dev',
 
