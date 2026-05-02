@@ -19,7 +19,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepare": "husky"
+    "prepare": "husky",
+	"syncScripts": "cd script-library && node sync-scripts.js"
   },
   "devDependencies": {
     "husky": "^9.1.7"
