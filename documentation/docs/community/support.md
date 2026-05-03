@@ -7,7 +7,7 @@ sidebar_position: 1
 ### Discord
 For Peer support and general discussion.
 
-[Follow this invite](https://discord.gg/uewW7a7jVX)
+[Follow this invite](https://discord.gg/jZNXuPnPMa)
 
 ### GitHub
 For official support and logging of bugs, suggestions etc. GitHub issues may

@@ -104,12 +104,6 @@ const config: Config = {
           position: 'left',
           label: 'Community',
         },
-        {
-          type: 'docSidebar',
-          sidebarId: 'communitySidebar',
-          position: 'left',
-          label: 'Community',
-        },
 		{
 			type: 'custom-VersionNavbarItem',
 			position: 'right'
@@ -140,7 +134,7 @@ const config: Config = {
             
 			{
               label: 'Discord',
-              href: 'https://groups.io/g/QRPLabs',
+              href: 'https://discord.gg/jZNXuPnPMa',
             },
             {
               label: 'QRPLabs on Groups.io',
