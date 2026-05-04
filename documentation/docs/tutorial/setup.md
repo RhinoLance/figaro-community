@@ -18,7 +18,7 @@ and it's free.
 1. Download the QMX CAT programming manual from 
 [QRP Labs - QMX](https://qrp-labs.com/qmx.html).
 1. Using your browser of choice, open 
-[Figaro's web app](https://rhinolance.github.io/figaro/) and setup a 
+[Figaro's web app](https://app.figaro.conryclan.com/) and setup a 
 connection to your QMX.
 1. Open DevTools and verify that you can view console output.
 
