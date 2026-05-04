@@ -1,0 +1,10 @@
+{
+  "label": "Commands",
+  "position": 4,
+  "link": {
+    "type": "generated-index",
+    "title": "Commands",
+    "slug": "/tutorial/commands",
+    "description": "Script commands for Figaro."
+  }
+}
