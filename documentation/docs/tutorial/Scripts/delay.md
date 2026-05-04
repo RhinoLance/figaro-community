@@ -66,7 +66,7 @@ frequencies with a 5 second delay.
 
 Now that you've started working with Promises, you'll find yourself 
 needing to debug your scripts.  Helpfull tips are found in the 
-**[debugging](debugging)** page.
+**[debugging](../debugging)** page.
 
 :::
 
