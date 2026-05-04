@@ -1,0 +1,77 @@
+---
+title: Cycle Ops Config
+hide_title: true
+description: Cycle through operational configurations.
+---
+
+import RemoteCode from '@site/src/components/RemoteCode';
+import ScriptPageHeader from '@site/src/components/ScriptPageHeader';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<ScriptPageHeader
+  title="Cycle Ops Config"
+  summary="Cycle through operational configurations."
+  installLabel="Install Cycle Filters"
+  ftdFileName="cycle-ops-config.json"
+/>
+
+<Tabs
+	defaultValue="overview"
+	values={[
+		{label: 'Overview', value: 'overview'},
+		{label: 'Source Code', value: 'source'},
+	]}>
+
+<TabItem value="overview">
+
+Never wonder if you've missed a configuration when switching operation from CW
+to SSTV to SSB etc.
+
+This script sets pre-defined operational configurations, but more importantly,
+will allow you to edit and add your own configurations for easy switching, or
+setting your radio back to a predefined base configuration.
+
+Each time the script is run, it will cycle to the next defined  
+configuration.
+
+:::note
+The first time the script is run, the list of available configs will be 
+displayed in the task card's description, with the active config appended
+to the end of the title.
+:::
+
+## Configuration
+
+Whilst several definitions have been pre-set in this script, you may want to 
+define your own configurations.  Do so by updating the `CONFIG_LIST` at the top
+of the script file.
+
+A configuration item should fit the interface below.  See the top of the source 
+code for some examples.
+```js
+IConfiguration = {
+	name: string,
+	mode?: "LSB"|"USB"|"CW"|"CWR"|"DIGI"|"DIGIR",
+	vfo?: "A"|"B"|"SPLIT",
+	maxVoltage?: number,
+	keyerSpeed?: number,
+	ssbAutoSb?: boolean,
+	ssbVox?: boolean,
+	ssbVoxThreshold?: number,
+	ssbVoxHoldTime?: number,
+	ssbDriveLevel?: number,
+	ssbInput?: "USB"|"Two-tone"|"Ext. mic"|"Auto",
+	digiVox?: boolean,
+	digiSideband?: "USB"|"LSB"
+}
+```
+
+</TabItem>
+
+<TabItem value="source">
+	### Source
+	<RemoteCode language="js" scriptLibraryFile="cycle-ops-config.js" />
+</TabItem>
+
+</Tabs>
