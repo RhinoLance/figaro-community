@@ -56,4 +56,4 @@ jobs:
           fi
 
       - name: deploy to conryclan
-        run: rsync -avz --delete documentation/build/ outerplanet@figaro.conryclan.com:$DEPLOY_URL/
+        run: rsync -avz --delete --filter='P toolbox/' --filter='P keep-me/' documentation/build/ outerplanet@figaro.conryclan.com:$DEPLOY_URL/
