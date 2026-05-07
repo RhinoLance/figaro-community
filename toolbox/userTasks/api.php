@@ -48,6 +48,11 @@ function handleGet(string $storageDir): void
 			respond(404, ['error' => 'Document not found.']);
 		}
 
+		// Update the file's modified timestamp (like `touch`)
+		if (!touch($filePath)) {
+			respond(500, ['error' => 'Unable to update document timestamp.']);
+		}
+
 		$result = getDocument($filePath);
 		respond(200, $result);
 	}
