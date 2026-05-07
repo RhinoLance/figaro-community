@@ -69,10 +69,14 @@ const config: Config = {
 				theme: {
 					customCss: './src/css/custom.css',
 				},
-				gtag: {
-					trackingID: 'G-MNSTTQDQ29',
-					anonymizeIP: true,
-				},
+				...(process.env.NODE_ENV === 'production'
+					? {
+						gtag: {
+							trackingID: 'G-MNSTTQDQ29',
+							anonymizeIP: true,
+						},
+					  }
+					: {}),
 			} satisfies Preset.Options,
 		],
 	],
