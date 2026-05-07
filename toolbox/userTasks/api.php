@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 header('Content-Type: application/json; charset=utf-8');
@@ -40,6 +41,7 @@ try {
 function handleGet(string $storageDir): void
 {
 	$id = $_GET['id'] ?? null;
+	$prefix = $_GET['prefix'] ?? null;
 
 	if (is_string($id) && $id !== '') {
 		$filePath = buildDocumentPath($storageDir, $id);
@@ -57,11 +59,32 @@ function handleGet(string $storageDir): void
 		respond(200, $result);
 	}
 
+	if (is_string($prefix) && $prefix !== '') {
+		$documentList = [];
+		foreach (glob($storageDir . DIRECTORY_SEPARATOR . $prefix . '*.json') ?: [] as $filePath) {
+
+			$id = pathinfo($filePath, PATHINFO_FILENAME);
+
+			try {
+				$result = [
+					'id' => $id,
+					'created' => filectime($filePath),
+					'modified' => filemtime($filePath),
+					'document' => getDocument($filePath)];
+				$documentList[] = $result;
+			} catch (RuntimeException $e) {
+				// Skip invalid documents
+			}
+		}
+
+		respond(200, $documentList);
+	}
+
 	$documentList = [];
 	foreach (glob($storageDir . DIRECTORY_SEPARATOR . '*.json') ?: [] as $filePath) {
-		
+
 		$id = pathinfo($filePath, PATHINFO_FILENAME);
-		
+
 		try {
 			$result = ['id' => $id, 'document' => getDocument($filePath)];
 			$documentList[] = $result;
@@ -99,8 +122,8 @@ function handlePutOrPost(string $storageDir): void
 	if (!is_string($id) || $id === '') {
 		$guid = generateGuidV4();
 
-		$prefix = (isset($payload['prefix']) && $payload['prefix'] !== '') 
-			? $payload['prefix']."_" 
+		$prefix = (isset($payload['prefix']) && $payload['prefix'] !== '')
+			? $payload['prefix'] . "_"
 			: '';
 
 		$id = $prefix . $guid;
@@ -110,11 +133,10 @@ function handlePutOrPost(string $storageDir): void
 	$exists = is_file($filePath);
 	writeDocument($filePath, $payload['ftd']);
 
-	if( !$exists ) {
-		header('Location: ' . buildResourceLocation($id));	
+	if (!$exists) {
+		header('Location: ' . buildResourceLocation($id));
 		respond(201, []);
-	}
-	else {
+	} else {
 		respond(200, [
 			'id' => $id,
 			'document' => $payload['ftd']
@@ -175,4 +197,3 @@ function respond(int $statusCode, array $payload): never
 	echo json_encode($payload, JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR);
 	exit;
 }
-
