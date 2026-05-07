@@ -97,12 +97,18 @@ function handlePutOrPost(string $storageDir): void
 
 	$id = $_GET['id'] ?? null;
 	if (!is_string($id) || $id === '') {
-		$id = generateGuidV4();
+		$guid = generateGuidV4();
+
+		$prefix = (isset($payload['prefix']) && $payload['prefix'] !== '') 
+			? $payload['prefix']."_" 
+			: '';
+
+		$id = $prefix . $guid;
 	}
 
 	$filePath = buildDocumentPath($storageDir, $id);
 	$exists = is_file($filePath);
-	writeDocument($filePath, $payload);
+	writeDocument($filePath, $payload['ftd']);
 
 	if( !$exists ) {
 		header('Location: ' . buildResourceLocation($id));	
@@ -111,7 +117,7 @@ function handlePutOrPost(string $storageDir): void
 	else {
 		respond(200, [
 			'id' => $id,
-			'document' => $payload
+			'document' => $payload['ftd']
 		]);
 	}
 }
@@ -146,12 +152,7 @@ function writeDocument(string $filePath, mixed $document): void
 
 function buildDocumentPath(string $storageDir, string $guid): string
 {
-	$normalized = strtolower(trim($guid));
-	if (!preg_match('/^[a-f0-9]{8}-[a-f0-9]{4}-[1-5][a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/', $normalized)) {
-		throw new RuntimeException('guid must be a valid GUID string.');
-	}
-
-	return $storageDir . DIRECTORY_SEPARATOR . $normalized . '.json';
+	return $storageDir . DIRECTORY_SEPARATOR . $guid . '.json';
 }
 
 function generateGuidV4(): string
