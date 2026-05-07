@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import CodeBlock from '@theme/CodeBlock';
 import styles from './TaskDefinitionBuilder.module.css';
+import TaskPublisher from './TaskPublisher';
 
 const COLOR_OPTIONS = [
   '#D63031',
@@ -153,8 +154,6 @@ export default function TaskDefinitionBuilder() {
           </div>
         </div>
 
-          
-
         <div className={styles.panel}>
           <div className={styles.codePreview}>
             <CodeBlock language="json">{taskDefinitionJson}</CodeBlock>
@@ -169,6 +168,7 @@ export default function TaskDefinitionBuilder() {
           <p className={styles.jsonHint}>
             This is the live JSON that can be saved as your FTD file.
           </p>
+		  <TaskPublisher taskDefinition={taskDefinition} />
         </div>
       </div>
     </div>

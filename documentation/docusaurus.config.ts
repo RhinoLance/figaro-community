@@ -113,6 +113,12 @@ const config: Config = {
 					label: 'Community',
 				},
 				{
+					type: 'docSidebar',
+					sidebarId: 'toolsSidebar',
+					position: 'left',
+					label: 'Tools',
+				},
+				{
 					type: 'custom-VersionNavbarItem',
 					position: 'right'
 				},

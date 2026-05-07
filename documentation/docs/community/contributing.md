@@ -9,11 +9,24 @@ efforts, or simply passing along and commenting on feedback and bugs.
 
 Please review the options below, and get in tough.
 
-## Scripts
+## Automation Tasks
 
-If you've developed a task-script which makes your QMX even more amazing than
-what it already is, I welcome pull requests to the 
-[GitHub](https://github.com/rhinolance/figaro-community) repo.
+If you've developed a task which makes your QMX even more amazing than
+what it already is and would like to share it, there are two options:
+
+### 1. Self-Publishing
+
+You can self publish a task and share with others either by hosting it 
+yourself, or by making use of Figaro's self-publishing facility.  Please 
+review the [Publishing Tasks](/docs/tutorial/publishing) section of the 
+tutorial for further details.
+
+### 2. Adding to the Script Library
+
+If you'd like to have your task avilable on the official 
+[Figaro Script Library](/docs/community-scripts/), create a pull request
+against the master branch of Figaro's 
+[GitHub repo](https://github.com/rhinolance/figaro-community).
 
 Please ensure that any pull requests include the following:
 - Matching `.js` and `.json` files in the [Script Library](https://github.com/RhinoLance/figaro-community/tree/main/script-library).
