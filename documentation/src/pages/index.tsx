@@ -37,7 +37,15 @@ export default function Home(): ReactNode {
       description="Figaro is a task automation tool for QMX equipped ham radio operators.">
       <HomepageHeader />
       <main>
-        <HomepageFeatures />
+		
+		<div style={{textAlign: 'center', margin: '3em'}}>
+			<b>Figaro</b> is a free app for <b>Android</b> and Browser, 
+			allowing you to run <b>pre-defined scripts</b> to automate tasks on 
+			your <b>QMX and QMX+</b> radio.
+		</div>
+		<hr />
+        
+		<HomepageFeatures />
 
 		<hr></hr>
 
