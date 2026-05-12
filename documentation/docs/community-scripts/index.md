@@ -32,8 +32,8 @@ script library, so it always in sync with what will be installed.
 #### Installation
 Installation of scripts from the library is a one-time action.  Any subsequent
 updates to the script in the library will not automatically update your tasks.
-If you with so get the updated version, simply edit your task and re-add the 
-script from the library.
+If you wish to get the updated version, simply re-add the 
+script from the library (and delete the old version).
 
 #### Contributions
 If you've developed a script which you believe will be valuable to the 

@@ -1,0 +1,21 @@
+<IfModule mod_headers.c>
+   Header always set Access-Control-Allow-Origin "*"
+   Header always set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
+   Header always set Access-Control-Allow-Headers "Content-Type"
+   Header always set Access-Control-Expose-Headers "Location"
+</IfModule>
+
+# Serve api.php for directory requests and for any request that is not an existing file
+DirectoryIndex api.php
+
+<IfModule mod_rewrite.c>
+   RewriteEngine On
+
+   # If the request maps to an existing file or directory, serve it normally
+   RewriteCond %{REQUEST_FILENAME} -f [OR]
+   RewriteCond %{REQUEST_FILENAME} -d
+   RewriteRule ^ - [L]
+
+   # Otherwise, rewrite the request to api.php and preserve query string
+   RewriteRule ^ api.php [L,QSA]
+</IfModule>

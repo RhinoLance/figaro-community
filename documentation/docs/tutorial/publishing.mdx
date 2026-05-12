@@ -7,6 +7,13 @@ import TaskDefinitionBuilder from '@site/src/components/TaskDefinitionBuilder';
 # Publishing Tasks
 
 Publishing tasks for others to install is a simple affair.
+
+### The Automated Way
+The simplest way to publish a task is to use Figaro's 
+[Self-Publishing tool](/docs/tools/self-publisher).
+
+### The Manual Way
+If you'd prefer a more hands-on approach, there are only two steps required:
 1.  Create a task definition file containing your script and name, description 
 etc.
 2.  Store it in a publically accessible location with a couple of links pointing
@@ -28,9 +35,10 @@ interface ITask {
 }
 ```
 
-Use this interactive builder to fill out `ITask` values and preview the JSON output in real time.
-
-<TaskDefinitionBuilder />
+:::tip
+Even if you plan to host your FTD yourself, You can still use the 
+[Self-Publishing tool](/docs/tools/self-publisher) to generate it.
+:::
 
 ## 2. Hosting and publishing installation links.
 

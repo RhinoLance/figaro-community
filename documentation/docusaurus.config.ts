@@ -69,10 +69,14 @@ const config: Config = {
 				theme: {
 					customCss: './src/css/custom.css',
 				},
-				gtag: {
-					trackingID: 'G-MNSTTQDQ29',
-					anonymizeIP: true,
-				},
+				...(process.env.NODE_ENV === 'production'
+					? {
+						gtag: {
+							trackingID: 'G-MNSTTQDQ29',
+							anonymizeIP: true,
+						},
+					  }
+					: {}),
 			} satisfies Preset.Options,
 		],
 	],
@@ -107,6 +111,12 @@ const config: Config = {
 					sidebarId: 'communitySidebar',
 					position: 'left',
 					label: 'Community',
+				},
+				{
+					type: 'docSidebar',
+					sidebarId: 'toolsSidebar',
+					position: 'left',
+					label: 'Tools',
 				},
 				{
 					type: 'custom-VersionNavbarItem',

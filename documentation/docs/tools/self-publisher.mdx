@@ -1,0 +1,116 @@
+---
+title: Self-Publish Tasks
+description: Publish your own tasks.
+sidebar_position: 1
+---
+
+import React, { useState, useMemo } from 'react';
+import { getEnvPaths } from "@site/src/models/Paths";
+
+import TaskDefinitionBuilder from '@site/src/components/TaskDefinitionBuilder';
+import TaskPublisher from '@site/src/components/TaskPublisher';
+import styles from '@site/src/components/TaskDefinitionBuilder.module.css';
+
+
+export const Wrapper = () => {
+
+	const [taskDefinition, setTaskDefinition] = useState(null)
+
+	const onFtdChange = (value) => {
+		setTaskDefinition(value);
+	}
+
+	return (
+		<div>
+			<TaskDefinitionBuilder ftdChanged={onFtdChange}/>
+			<TaskPublisher taskDefinition={taskDefinition} />
+		</div>
+	)
+
+}
+
+export const SelfHostedUrlBuilder = () => {
+
+	const [publishUrl, setPublishUrl] = useState("")
+
+	const paths = getEnvPaths();
+
+	const urlPrefix = `${paths.community}sharedTask/?` +
+			`ftdPath=`;
+
+	console.log(urlPrefix);
+
+	const onFtdChange = (value) => {
+		setPublishUrl(urlPrefix + encodeURIComponent(value));
+	}
+
+	return (
+		<div className={styles.panel}>
+			<div className={styles.field} style={{ maxWidth: '500px' }}>
+				<input
+					id="prefix"
+					type="text"
+					placeholder="FTD URL"
+					onChange={(event) => onFtdChange(event.target.value)}
+				/>
+			</div>
+
+			<div style={{ fontSize: '0.8rem', marginTop: '0.25rem' }}>
+				🔗{' '}
+				<a href={publishUrl} target="_blank" rel="noopener noreferrer">
+					{publishUrl}
+				</a>
+			</div>
+		</div>
+	);
+}
+
+# Self-Publish Tasks
+
+Use this builder to generate a Figaro Task Definition (FTD), and publish 
+it for yourself, or to share with others.
+
+### Accessing your Tasks
+Once a task has been published, you may access it in one of two
+ways:
+- An automatically generated link.
+- If you choose to add your callsign to the builder, you can retrieve a list
+of tasks you've submitted from the [Task Search](search-tasks) page, 
+*as can anyone else*.
+
+### Inactive task purging
+FTDs are automatically deleted after not being accessed for more than a month.
+
+If you've built something special, feel free to get in touch with the Figaro
+team to discuss getting it added to the official scrript library.
+
+:::note
+All tasks published with this facility should be considered public.  If you 
+wrote a script to transmit your ssh private key in CW and publish it here ...
+well ... you get the picture.
+:::
+
+## Publishing
+Publishing is a two step process:
+1.  **Generate your FTD**: Start by completing the FTD generator below.  You 
+will see the FTD being populated as you fill in the form.  When you're done
+you can either copy or download the completed FTD, or if you want it hosted for
+you, move on to the next step.
+
+If you're planning on self-hosting your FTD, you may still want to use Figaro's 
+[self-hosting install facility](self-publisher#self-hosted-ftds).
+
+ 1. **Publish**:  Add your callsign if you'd like to be able to search for your
+ published tasks later, them press the *Publish Task* button.  A link to your 
+ task's install page will be generated and displayed for you to follow.
+
+<Wrapper />
+
+## Self Hosted FTDs
+
+If you have task definitions which you're self hosting, you can still use the 
+Figaro installation tools.  Simply paste the URL of your FTD json file below, 
+and copy the installation link ID for your own use, or to share with others.
+
+<SelfHostedUrlBuilder />
+
