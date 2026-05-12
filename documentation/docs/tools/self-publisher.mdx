@@ -68,14 +68,15 @@ export const SelfHostedUrlBuilder = () => {
 # Self-Publish Tasks
 
 Use this builder to generate a Figaro Task Definition (FTD), and publish 
-it for yourself, or share with others.
+it for yourself, or to share with others.
 
 ### Accessing your Tasks
 Once a task has been published, you may access it in one of two
 ways:
 - An automatically generated link.
-- (coming soon): If you choose to add your callsign to the builder, you can retrieve a list
-of tasks you've submitted, *as can anyone else*.
+- If you choose to add your callsign to the builder, you can retrieve a list
+of tasks you've submitted from the [Task Search](search-tasks) page, 
+*as can anyone else*.
 
 ### Inactive task purging
 FTDs are automatically deleted after not being accessed for more than a month.
@@ -88,6 +89,20 @@ All tasks published with this facility should be considered public.  If you
 wrote a script to transmit your ssh private key in CW and publish it here ...
 well ... you get the picture.
 :::
+
+## Publishing
+Publishing is a two step process:
+1.  **Generate your FTD**: Start by completing the FTD generator below.  You 
+will see the FTD being populated as you fill in the form.  When you're done
+you can either copy or download the completed FTD, or if you want it hosted for
+you, move on to the next step.
+
+If you're planning on self-hosting your FTD, you may still want to use Figaro's 
+[self-hosting install facility](self-publisher#self-hosted-ftds).
+
+ 1. **Publish**:  Add your callsign if you'd like to be able to search for your
+ published tasks later, them press the *Publish Task* button.  A link to your 
+ task's install page will be generated and displayed for you to follow.
 
 <Wrapper />
 
