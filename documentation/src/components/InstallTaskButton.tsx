@@ -36,6 +36,11 @@ export default function InstallTaskButton({
 	const [qrCodeElement, setQrCodeElement] = React.useState<JSX.Element | null>(null);
 	
 	const isAndroid = (() => {
+		
+		if( typeof navigator === 'undefined' || typeof window === 'undefined' ) {
+			return false;
+		}
+
 		const navigatorWithUAData = navigator as TUserAgentWithUAData;
 		const isAndroidOptions: boolean[] = [
 			typeof navigator !== 'undefined' && /android/i.test(navigator.userAgent),
