@@ -1,0 +1,10 @@
+{
+  "title": "Toggle AGC",
+  "description": "",
+  "script": "const name = \"toggle\"\r\nconst catSuffix = \"AGC\";\r\nconst valuePrefix = \"\";\r\nconst values = [\"ON\", \"OFF\"];\r\n\r\nconsole.log(`AGC tune ${name} script loaded`);\r\n\r\nconst LIST = values;\r\n\r\nconst getNext = (lastIndex, list) => {\r\n\tlet index = isNaN(lastIndex) ? -1 : lastIndex;\r\n\tindex = (index + 1) % list.length;\r\n\treturn index;\r\n}\r\n\r\nconst applyAGCSettings = (value) => {\r\n\tconst prefix = \"MMAUDIO|AGC settings|\";\r\n\r\n\tsendCat(`${prefix}${catSuffix}=${value};`, false);\r\n}\r\n\r\nconst getDescription = (activeIndex, length) => {\r\n\t\r\n\tlet out = \"\";\r\n\r\n\tfor( let i=0; i<LIST.length; i++) {\r\n\t\tout += (i == activeIndex ? \"^\" : \"-\");\r\n\t}\r\n\r\n\treturn out;\r\n}\r\n\r\nconst lastIndex = parseInt(Storage.get(\"lastIndex\"));\r\nconst index = getNext(lastIndex, LIST);\r\nStorage.set(\"lastIndex\", index);\r\n\r\napplyAGCSettings(LIST[index]);\r\n\r\nsetTitle(`${context.task.title}: ${valuePrefix}${LIST[index]}`);\r\n",
+  "autoRunOnConnect": false,
+  "autoRunPriority": 0,
+  "autoLock": false,
+  "runLocked": false,
+  "color": "#22c55e"
+}

@@ -1,0 +1,9 @@
+{
+  "label": "AGC scripts",
+  "position": 1,
+  "link": {
+    "type": "generated-index",
+    "title": "Community Scripts - AGC",
+    "description": "A collection of AGC scripts."
+  }
+}

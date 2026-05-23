@@ -1,0 +1,186 @@
+---
+title: Tune AGC Parameters
+hide_title: true
+description: Tune AGC Parameters
+---
+
+import RemoteCode from '@site/src/components/RemoteCode';
+import ScriptPageHeader from '@site/src/components/ScriptPageHeader';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+## Tune individual AGC parameters.
+The page lists a series of tasks which can be used to tune each of the AGC 
+parameters.
+
+For each parameter, running the task will increment that parameter's setting.
+
+E.g. when running the "Tune Threshold" task, if currently set to **S3**, it 
+will advance to **S4**, then the next time **S5**.
+
+:::note
+If running firmware less than **1.04**, in order for the radio to apply the 
+changes you will need to either enter and exit the menu or restart the radio.
+:::
+
+
+<ScriptPageHeader
+	title="AGC Tune: Hang time"
+	summary="AGC Tune: Hang time"
+	installLabel="AGC Tune: Hang time"
+	ftdFileName="cycle-tune-hangTime.json"
+/>
+<Tabs
+	defaultValue="overview"
+	values={[
+		{label: 'Overview', value: 'overview'},
+		{label: 'Source Code', value: 'source'},
+	]}>
+
+	<TabItem value="overview">
+	</TabItem>
+
+	<TabItem value="source">
+		### Source
+		<RemoteCode language="js" scriptLibraryFile="agc-tune-hangTime.js" />
+	</TabItem>
+
+</Tabs>
+
+<ScriptPageHeader
+	title="AGC Tune: Noise filter"
+	summary="AGC Tune: Noise filter"
+	installLabel="AGC Tune: Noise filter"
+	ftdFileName="cycle-tune-noise.json"
+/>
+<Tabs
+	defaultValue="overview"
+	values={[
+		{label: 'Overview', value: 'overview'},
+		{label: 'Source Code', value: 'source'},
+	]}>
+
+	<TabItem value="overview">
+	</TabItem>
+
+	<TabItem value="source">
+		### Source
+		<RemoteCode language="js" scriptLibraryFile="agc-tune-noise.js" />
+	</TabItem>
+
+</Tabs>
+
+<ScriptPageHeader
+	title="AGC Tune: Recovery"
+	summary="AGC Tune: Recovery"
+	installLabel="AGC Tune: Recovery"
+	ftdFileName="cycle-tune-recovery.json"
+/>
+<Tabs
+	defaultValue="overview"
+	values={[
+		{label: 'Overview', value: 'overview'},
+		{label: 'Source Code', value: 'source'},
+	]}>
+
+	<TabItem value="overview">
+	</TabItem>
+
+	<TabItem value="source">
+		### Source
+		<RemoteCode language="js" scriptLibraryFile="agc-tune-recovery.js" />
+	</TabItem>
+
+</Tabs>
+
+<ScriptPageHeader
+	title="AGC Tune: S9 Sounds like"
+	summary="AGC Tune: S9 Sounds like"
+	installLabel="AGC Tune: S9 Sounds like"
+	ftdFileName="cycle-tune-hangTime.json"
+/>
+<Tabs
+	defaultValue="overview"
+	values={[
+		{label: 'Overview', value: 'overview'},
+		{label: 'Source Code', value: 'source'},
+	]}>
+
+	<TabItem value="overview">
+	</TabItem>
+
+	<TabItem value="source">
+		### Source
+		<RemoteCode language="js" scriptLibraryFile="agc-tune-s9SoundsLike.js" />
+	</TabItem>
+
+</Tabs>
+
+<ScriptPageHeader
+	title="AGC Tune: Slope"
+	summary="AGC Tune: Slope"
+	installLabel="AGC Tune: Slope"
+	ftdFileName="cycle-tune-slope.json"
+/>
+<Tabs
+	defaultValue="overview"
+	values={[
+		{label: 'Overview', value: 'overview'},
+		{label: 'Source Code', value: 'source'},
+	]}>
+
+	<TabItem value="overview">
+	</TabItem>
+
+	<TabItem value="source">
+		### Source
+		<RemoteCode language="js" scriptLibraryFile="agc-tune-slope.js" />
+	</TabItem>
+
+</Tabs>
+
+<ScriptPageHeader
+	title="AGC Tune: Smooth samples"
+	summary="AGC Tune: Smooth samples"
+	installLabel="AGC Tune: Smooth samples"
+	ftdFileName="cycle-tune-smoothSamples.json"
+/>
+<Tabs
+	defaultValue="overview"
+	values={[
+		{label: 'Overview', value: 'overview'},
+		{label: 'Source Code', value: 'source'},
+	]}>
+
+	<TabItem value="overview">
+	</TabItem>
+
+	<TabItem value="source">
+		### Source
+		<RemoteCode language="js" scriptLibraryFile="agc-tune-smoothSamples.js" />
+	</TabItem>
+
+</Tabs>
+
+<ScriptPageHeader
+	title="AGC Tune: Threshold"
+	summary="AGC Tune: Threshold"
+	installLabel="AGC Tune: Threshold"
+	ftdFileName="cycle-tune-threshold.json"
+/>
+<Tabs
+	defaultValue="overview"
+	values={[
+		{label: 'Overview', value: 'overview'},
+		{label: 'Source Code', value: 'source'},
+	]}>
+
+	<TabItem value="overview">
+	</TabItem>
+
+	<TabItem value="source">
+		### Source
+		<RemoteCode language="js" scriptLibraryFile="agc-tune-threshold.js" />
+	</TabItem>
+
+</Tabs>

@@ -1,0 +1,10 @@
+{
+  "title": "AGC tune \"S9 sounds like\"",
+  "description": "",
+  "script": "const name = \"S9 sounds like\"\r\nconst catSuffix = \"S9 sounds like S\";\r\nconst valuePrefix = \"S\";\r\nconst range = [0,12];\r\nconst step = 1;\r\n\r\nconsole.log(`AGC tune ${name} script loaded`);\r\n\r\nconst LIST = Array.from({ length: Math.floor((range[1] - range[0]) / step) + 1 }, (_, i) => i * step + range[0]);\r\n\r\nconst getNext = (lastIndex, list) => {\r\n\tlet index = isNaN(lastIndex) ? -1 : lastIndex;\r\n\tindex = (index + 1) % list.length;\r\n\treturn index;\r\n}\r\n\r\nconst applyAGCSettings = (value) => {\r\n\tconst prefix = \"MMAUDIO|AGC settings|\";\r\n\r\n\tsendCat(`${prefix}${catSuffix}=${value};`, false);\r\n}\r\n\r\nconst getDescription = (activeIndex, length) => {\r\n\t\r\n\tlet out = \"\";\r\n\r\n\tfor( let i=0; i<LIST.length; i++) {\r\n\t\tout += (i == activeIndex ? \"^\" : \"-\");\r\n\t}\r\n\r\n\treturn out;\r\n}\r\n\r\nconst lastIndex = parseInt(Storage.get(\"lastIndex\"));\r\nconst index = getNext(lastIndex, LIST);\r\nStorage.set(\"lastIndex\", index);\r\n\r\napplyAGCSettings(LIST[index]);\r\n\r\nsetTitle(`${context.task.title}: ${valuePrefix}${LIST[index]}`);\r\nconst description = getDescription(index, LIST.length);\r\nsetDescription(`${context.task.description} ${description}`);",
+  "autoRunOnConnect": false,
+  "autoRunPriority": 0,
+  "autoLock": false,
+  "runLocked": false,
+  "color": "#22c55e"
+}

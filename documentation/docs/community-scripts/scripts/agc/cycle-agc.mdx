@@ -1,0 +1,47 @@
+---
+title: Cycle AGC Presets
+hide_title: true
+description: Cycle AGC presets.
+---
+
+import RemoteCode from '@site/src/components/RemoteCode';
+import ScriptPageHeader from '@site/src/components/ScriptPageHeader';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<ScriptPageHeader
+  title="Cycle AGC Presets"
+  summary="Cycle through a range of preset AGC configurations."
+  installLabel="Cycle AGC Presets"
+  ftdFileName="cycle-agc.json"
+/>
+
+<Tabs
+	defaultValue="overview"
+	values={[
+		{label: 'Overview', value: 'overview'},
+		{label: 'Source Code', value: 'source'},
+	]}>
+
+<TabItem value="overview">
+
+Many AGC presets have been sourced from the QRP Labs groups.io mailing list.
+They were offered by QMX operators for whom their perticular settings worked.
+
+The names given to each preset were simpley that of a cartoon character that
+for one reason or another seemed appropriate based on some impression of the 
+description when the settings were published.
+
+:::note
+If running firmware less than **1.04**, in order for the radio to apply the 
+preset you will need to either enter and exit the menu or restart the radio.
+:::
+ 
+</TabItem>
+
+<TabItem value="source">
+	### Source
+	<RemoteCode language="js" scriptLibraryFile="cycle-agc.js" />
+</TabItem>
+
+</Tabs>

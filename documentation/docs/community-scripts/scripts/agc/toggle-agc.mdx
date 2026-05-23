@@ -1,0 +1,43 @@
+---
+title: Toggle AGC
+hide_title: true
+description: Turn AGC On and Off.
+---
+
+import RemoteCode from '@site/src/components/RemoteCode';
+import ScriptPageHeader from '@site/src/components/ScriptPageHeader';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<ScriptPageHeader
+  title="Toggle AGC"
+  summary="Toggle AGC On and Off."
+  installLabel="Toggle AGC"
+  ftdFileName="agc-toggle.json"
+/>
+
+<Tabs
+	defaultValue="overview"
+	values={[
+		{label: 'Overview', value: 'overview'},
+		{label: 'Source Code', value: 'source'},
+	]}>
+
+<TabItem value="overview">
+
+Quickly turn AGC on and off to check what it's doing.  Usefull for fine tuning
+AGC setttings, allowing instant comparrison between wet and dry signals.
+
+:::note
+If running firmware less than **1.04**, in order for the radio to apply the 
+changes you will need to either enter and exit the menu or restart the radio.
+:::
+ 
+</TabItem>
+
+<TabItem value="source">
+	### Source
+	<RemoteCode language="js" scriptLibraryFile="agc-toggle.js" />
+</TabItem>
+
+</Tabs>
