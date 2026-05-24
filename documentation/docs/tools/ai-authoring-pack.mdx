@@ -1,0 +1,90 @@
+---
+sidebar_position: 3
+---
+
+# AI Authoring Pack
+
+This page provides a practical contract and prompt template to help AI tools
+author safe, valid Figaro tasks.
+
+## 1. Use the Task Contract
+
+Every generated task should conform to the Figaro Task Definition (FTD) schema.
+
+- Schema file in this repository: `schemas/figaro-ftd.schema.json`
+- Local validator command: `npm run validateScripts`
+- Sync + validate command: `npm run checkScripts`
+
+Required fields:
+
+```ts
+interface ITask {
+  title: string;
+  description: string;
+  script: string;
+  autoRunOnConnect: boolean;
+  autoRunPriority: number;
+  autoLock: boolean;
+  runLocked: boolean;
+  color?: string; // #RRGGBB
+}
+```
+
+## 2. Prompt Template for AI
+
+Use this as a starting prompt when asking AI to generate a new task:
+
+```text
+You are writing a Figaro task for a QMX/QMX+ radio.
+
+Goal:
+- <Describe exactly what the task should do>
+
+Constraints:
+- Output must be a valid Figaro Task Definition JSON object.
+- Include: title, description, script, autoRunOnConnect, autoRunPriority, autoLock, runLocked.
+- Optional: color in #RRGGBB.
+- Script must avoid unsafe infinite loops.
+- If script enters TX, it must always include an RX cleanup path.
+- If timers are created (task.setInterval/task.setTimeout), include cleanup logic.
+
+Environment assumptions:
+- Runtime provides: sendCat, pause, task.waitUntil, task.setTimeout/task.clearTimeout,
+  task.setInterval/task.clearInterval, Storage, print, setTitle, setDescription.
+
+Output format:
+1) JSON only (no markdown)
+2) Then a short explanation of safety decisions
+3) Then a manual test checklist
+```
+
+## 3. Guardrails to Ask AI For
+
+When a task is non-trivial, include these explicit asks in your prompt:
+
+- Add defensive parsing for CAT responses.
+- Bound retry loops (max attempts + timeout).
+- Use `task.waitUntil(...)` for asynchronous task lifecycles.
+- Keep side effects reversible where possible.
+
+## 4. Validate Before Publishing
+
+Run these checks in the repository root:
+
+```bash
+npm run syncScripts
+npm run validateScripts
+```
+
+These checks catch:
+
+- Invalid or incomplete FTD JSON.
+- JS and JSON script content drift.
+- Basic safety issues (infinite loops, TX without RX cleanup).
+
+## 5. Recommended AI Workflow
+
+1. Generate a first draft with the prompt template.
+2. Run the validator and fix all errors.
+3. Test against your radio in a controlled scenario.
+4. Add a short "Known limits" note in the task description.
