@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://figaro.conryclan.com/schema/figaro-ftd.schema.json",         
+  "$id": "https://figaro.conryclan.com/docs/tools/ai-authoring/figaro-ftd.schema.json",         
   "title": "Figaro Task Definition",
   "description": "Schema for Figaro task definition JSON files.",
   "type": "object",

@@ -1,0 +1,65 @@
+---
+title: Constraints
+description: Strict shape, types, defaults, and output format for FTD JSON.
+sidebar_position: 3
+---
+
+`This page is intended for AI Coding Agents, not people.`
+
+# Constraints
+
+This page defines the exact contract an AI agent must satisfy.
+
+## FTD object contract
+
+FTD objects must conform with the [figaro-ftd schema](figaro-ftd.schema.json)
+
+Forbidden:
+
+- Any other key not defined in the schema.
+
+## Output formatting rules
+
+- Output JSON only when asked for a generated task.
+- No markdown code fences around JSON unless explicitly requested.
+- Use valid JSON (double quotes, no trailing commas, no comments).
+- Escape newlines in script exactly as JSON string content.
+
+## Script content constraints
+
+- script must be plain JavaScript source code as a string value.
+- Do not use import or require.
+- Do not assume access to files, network, npm packages, or repository modules.
+- Do not generate infinite loops.
+- Avoid unbounded recursion.
+
+## Deterministic default policy
+
+If prompt requirements are incomplete, use these defaults:
+
+- autoRunOnConnect: false
+- autoRunPriority: 0
+- autoLock: false
+- runLocked: false
+
+## Minimal valid template
+
+```json
+{
+	"title": "Task Name",
+	"description": "What the task does.",
+	"script": "print('hello');",
+	"autoRunOnConnect": false,
+	"autoRunPriority": 0,
+	"autoLock": false,
+	"runLocked": false
+}
+```
+
+## Quality checklist before returning JSON
+
+- All required keys present.
+- No extra keys.
+- Type and range checks pass.
+- script is non-empty and syntactically valid JavaScript.
+- Any timer usage includes corresponding cleanup.

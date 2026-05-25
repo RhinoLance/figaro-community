@@ -1,0 +1,36 @@
+---
+sidebar_position: 1
+---
+
+# AI Authoring Pack
+
+This document is here to assist you using an AI Coding Agent to create Figaro
+Task Definitions.
+
+### 1) Prompt to give the AI agent
+
+```text
+You are generating a Figaro Task Definition (FTD) JSON object.
+
+Read this entry point and follow its linked pages in order:
+https://figaro.conryclan.com/docs/tools/ai-authoring/entry
+
+Goal:
+- <describe the radio task behavior in detail>
+
+Output requirements:
+- Return JSON only (no markdown, no prose outside JSON).
+- Follow the full JSON contract in Constraints exactly.
+
+Behavior requirements:
+- Follow Environment assumptions and Guardrails exactly.
+
+Before final answer:
+- Validate using Testing strategy.
+```
+
+## One-line validator reminder
+
+```bash
+npx --yes --package figaro-tools figaro-ftd-validate <path-to-task.json>
+```

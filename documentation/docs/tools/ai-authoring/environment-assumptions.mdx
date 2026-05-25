@@ -1,0 +1,49 @@
+---
+title: Environment Assumptions
+description: Runtime API contract the generated script can assume.
+sidebar_position: 3
+---
+
+`This page is intended for AI Coding Agents, not people.`
+
+# Environment Assumptions
+
+Assume only the runtime contract described on this page. Do not assume repository
+knowledge, hidden helpers, or external libraries.
+
+## Runtime capabilities
+
+Generated scripts may rely on the following [runtime APIs](FigaroScriptRuntime.d.ts).
+
+Their use is further documented in the 
+[tutorial section](http://localhost:3000/docs/tutorial/commands)
+
+## Runtime limits and non-assumptions
+
+- No Node.js modules.
+- No DOM APIs.
+- No file system access.
+- No browser fetch/network assumptions unless prompt explicitly states availability.
+- No direct hardware model assumptions beyond CAT command behavior described by prompt.
+
+## CAT interaction assumptions
+
+- Scripts should validate and parse defensively.
+- Scripts should avoid hard failures on a single malformed response.
+
+## Async lifecycle pattern
+
+For asynchronous tasks, use this pattern:
+
+1. Build a single runner Promise for all async behavior.
+2. Register timers inside the runner.
+3. Resolve/reject runner on completion or cancel.
+4. Cleanup timers and radio state in finally blocks.
+5. Pass runner into task.waitUntil(runner).
+
+## Script style guidance
+
+- Prefer small helper functions for parse, action, and cleanup.
+- Keep constants near the top for speed/timeout tuning.
+- Include concise logging for critical transitions.
+- Keep scripts readable and maintainable over minimal byte size.
