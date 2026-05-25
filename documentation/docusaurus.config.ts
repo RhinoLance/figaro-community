@@ -119,6 +119,12 @@ const config: Config = {
 					label: 'Tools',
 				},
 				{
+					type: 'docSidebar',
+					sidebarId: 'apiSidebar',
+					position: 'left',
+					label: 'API',
+				},
+				{
 					type: 'custom-VersionNavbarItem',
 					position: 'right'
 				},
