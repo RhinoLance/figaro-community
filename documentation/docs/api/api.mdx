@@ -58,6 +58,11 @@ A promise that resolves when the delay has elapsed.
 
 none
 
+:::note
+`delay` blocks execution and user interaction.  It should not be used for
+long periods or where it will inhibit the ability to terminate a script.
+:::
+
 ### `pause`
 
 `pause(icon: string = 'play-pause', colour?: string, resume?: Promise<void>): Promise<void>`

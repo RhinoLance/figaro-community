@@ -44,10 +44,14 @@ Use these guardrails for every generated task script.
 - Route cancellation through one cleanup function.
 - Cleanup function should be idempotent (safe to call multiple times).
 
+## User input blocking
+
+- Prefer async execution of long running processes.
+- Use `pause` API to allow user to cancel script.
 
 ## GUI feedback
 
-- print API has a maximum length of 4 characters, and two lines.
+- print API can display two lines of up to 4 characters.
 - prefer setDescription API for longer messages.
 - prefer setTitle API to append additional value to task title, with 
   setTitle( context.task.title + `${newValue}` )

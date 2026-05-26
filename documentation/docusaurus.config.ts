@@ -177,7 +177,7 @@ const config: Config = {
 					],
 				},
 			],
-			copyright: `Copyright © ${new Date().getFullYear()}, Inc. Built with Docusaurus.`,
+			copyright: `Copyright © ${new Date().getFullYear()}, Lance Conry.`,
 		},
 		prism: {
 			theme: prismThemes.github,
