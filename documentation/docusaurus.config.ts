@@ -119,6 +119,12 @@ const config: Config = {
 					label: 'Tools',
 				},
 				{
+					type: 'docSidebar',
+					sidebarId: 'apiSidebar',
+					position: 'left',
+					label: 'API',
+				},
+				{
 					type: 'custom-VersionNavbarItem',
 					position: 'right'
 				},
@@ -171,7 +177,7 @@ const config: Config = {
 					],
 				},
 			],
-			copyright: `Copyright © ${new Date().getFullYear()}, Inc. Built with Docusaurus.`,
+			copyright: `Copyright © ${new Date().getFullYear()}, Lance Conry.`,
 		},
 		prism: {
 			theme: prismThemes.github,

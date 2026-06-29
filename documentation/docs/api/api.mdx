@@ -1,0 +1,338 @@
+# API
+
+## Communication
+
+### `sendCat`
+
+`sendCat(command: string, waitForResponse: boolean = true): Promise<string>`
+
+Send CAT commands and receive responses to the radio over a serial connection.
+
+#### Parameters:
+
+- `command`: API command string.  For a list of commands and their formats
+	see the [QMX CAT reference](https://qrp-labs.com/images/qmx/manuals/cat_1_03_000.pdf).
+- `waitForResponse`: Should the function wait for a response, or complete as 
+	soon as the command has been sent?.  Default: true
+
+#### Return value:
+
+The function returns a promise, which will resolve a string upon completion.
+	If `waitForResponse` is true, the string will contain the response value, 
+	otherwise it will be an empty string.
+
+#### Errors
+
+If `waitForResponse` is true, and no response is received after 500 ms, an error
+will be thrown.
+
+:::note
+- The command format copies that of the Kenwood TS-480, with some additional
+extensions.
+- There should be no space between the CAT command and any arguments.
+- Commands should always be terminated with a semicolon.
+- The terminating semicolon on the response is stripped by Figaro, so is
+never present in the response.
+- As a general rule:
+	- when sending GET commands, `waitForResponse` should be true.
+	- when sending SET commands, `waitForResponse` should be false.
+:::
+
+## Script Control
+
+### `delay`
+
+`delay(milliseconds: number): Promise<void>`
+
+Delay script execution for the specified time.
+
+#### Parameters:
+
+- `milliseconds`: Delay duration in milliseconds.
+
+#### Return value:
+
+A promise that resolves when the delay has elapsed.
+
+#### Errors:
+
+none
+
+:::note
+`delay` blocks execution and user interaction.  It should not be used for
+long periods or where it will inhibit the ability to terminate a script.
+:::
+
+### `pause`
+
+`pause(icon: string = 'play-pause', colour?: string, resume?: Promise<void>): Promise<void>`
+
+Pause script execution until resumed by user input, or by a supplied promise.
+
+#### Parameters:
+
+- `icon`: Run button icon while paused. Supported values:
+	- `'play'`
+	- `'play-pause'`
+	- `'stop'`
+- `colour`: Optional hex color for the Run button background (for example, `#FF0000`).
+- `resume`: Optional promise which, when resolved, resumes script execution.
+
+#### Return value:
+
+A promise that resolves when execution resumes.
+
+#### Errors:
+
+none
+
+## Output
+
+### `print`
+
+`print(text?: string): void`
+
+Show or clear a short transient message on the running task card.
+
+#### Parameters:
+
+- `text`: Optional text to display. If omitted, the print area is removed.
+
+#### Return value:
+
+none
+
+#### Errors:
+
+none
+
+:::note
+- The print area supports two lines of three to five characters each (character 
+width dependent).
+- Printed output is automatically removed when the script completes.
+:::
+
+## Storage
+
+### `Storage.get`
+
+`Storage.get(key: string): string`
+
+Retrieve a previously stored value.
+
+#### Parameters:
+
+- `key`: Storage key name.
+
+#### Return value:
+
+The stored value as a string.
+
+#### Errors:
+
+none
+
+### `Storage.set`
+
+`Storage.set(key: string, value: any): void`
+
+Store a value for later use.
+
+#### Parameters:
+
+- `key`: Storage key name.
+- `value`: Value to store.
+
+#### Return value:
+
+none
+
+#### Errors:
+
+none
+
+:::note
+- Storage keys are scoped to a task.
+- Values persist across script runs and app restarts.
+:::
+
+## UI
+
+### `setTitle`
+
+`setTitle(title: string): void`
+
+Set the task title shown on the task card.
+
+#### Parameters:
+
+- `title`: New task title.
+
+#### Return value:
+
+none
+
+#### Errors:
+
+none
+
+### `setDescription`
+
+`setDescription(description: string): void`
+
+Set the task description shown on the task card.
+
+#### Parameters:
+
+- `description`: New task description.
+
+#### Return value:
+
+none
+
+#### Errors:
+
+none
+
+### `context`
+
+`context.task`
+
+Read-only information about the current task.
+
+#### Shape:
+
+```ts
+context: {
+	task: {
+		id: number;
+		title: string;
+		description: string;
+		color?: string;
+		autoRunOnConnect: boolean;
+		autoRunPriority: number;
+		autoLock: boolean;
+	}
+}
+```
+
+## Task
+
+The `task` functions assist with constraining async functions to the task 
+lifetime.
+
+### `task.waitUntil`
+
+`task.waitUntil(promise: Promise<any>): void`
+
+The script will not complete until the passed promise has completed.
+
+#### Parameters:
+
+- `promise`: The promise to wait for before the script will complete.
+
+#### Return value:
+
+none
+
+#### Errors:
+
+none
+
+### `task.onCleanup`
+
+`task.onCleanup(handler: Fn): void`
+
+Registers cleanup logic that always runs at end of the script, even on failure.
+
+#### Parameters:
+
+- `handler`: Cleanup function to run when the script ends.
+
+#### Return value:
+
+none
+
+#### Errors:
+
+none
+
+### `task.setInterval`
+
+`task.setInterval(handler: Fn, timeout: number, ...args: any): number`
+
+Run a function repeatedly on a timed interval, scoped to the script lifetime.
+
+#### Parameters:
+
+- `handler`: Function to execute each interval.
+- `timeout`: Interval delay in milliseconds.
+- `args`: Optional arguments passed to `handler`.
+
+#### Return value:
+
+Interval ID.
+
+#### Errors:
+
+none
+
+### `task.clearInterval`
+
+`task.clearInterval(intervalId: number): void`
+
+Stop a running interval created by `task.setInterval`.
+
+#### Parameters:
+
+- `intervalId`: Interval ID returned by `task.setInterval`.
+
+#### Return value:
+
+none
+
+#### Errors:
+
+none
+
+### `task.setTimeout`
+
+`task.setTimeout(handler: Fn, timeout: number, ...args: any): number`
+
+Schedule a one-time function call, scoped to the script lifetime.
+
+#### Parameters:
+
+- `handler`: Function to execute after the timeout.
+- `timeout`: Delay in milliseconds.
+- `args`: Optional arguments passed to `handler`.
+
+#### Return value:
+
+Timeout ID.
+
+#### Errors:
+
+none
+
+### `task.clearTimeout`
+
+`task.clearTimeout(timeoutId: number): void`
+
+Cancel a timeout created by `task.setTimeout`.
+
+#### Parameters:
+
+- `timeoutId`: Timeout ID returned by `task.setTimeout`.
+
+#### Return value:
+
+none
+
+#### Errors:
+
+none
+
+:::note
+- `task` timers are automatically cleaned up when the script ends.
+:::

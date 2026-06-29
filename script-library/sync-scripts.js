@@ -20,7 +20,7 @@ const SCRIPT_LIBRARY_DIR = __dirname;
  */
 function getJsFiles() {
   return fs.readdirSync(SCRIPT_LIBRARY_DIR)
-    .filter(file => file.endsWith('.js') && file !== 'sync-scripts.js')
+    .filter(file => file.endsWith('.js') && file !== 'sync-scripts.js' && file !== 'validate-scripts.js')
     .sort();
 }
 

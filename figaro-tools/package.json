@@ -1,0 +1,38 @@
+{
+  "name": "figaro-tools",
+  "version": "1.0.0",
+  "description": "CLI tools for validating Figaro task definition JSON files.",
+  "license": "MIT",
+  "type": "commonjs",
+  "bin": {
+    "figaro-ftd-validate": "bin/figaro-ftd-validate.js"
+  },
+  "homepage": "https://github.com/RhinoLance/figaro-community/figaro-tools/",
+  "bugs": {
+    "url": "https://github.com/RhinoLance/figaro-community/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RhinoLance/figaro-community.git"
+  },
+  "files": [
+    "bin",
+    "lib",
+    "schemas",
+    "README.md",
+    "PUBLISHING.md"
+  ],
+  "scripts": {
+    "test": "node --test test/**/*.test.js",
+    "validate": "node bin/figaro-ftd-validate.js --help",
+    "pack:check": "npm pack --dry-run",
+    "publish:check": "npm run test && npm run pack:check",
+    "publish:public": "npm publish --access public"
+  },
+  "keywords": [
+    "figaro",
+    "validation",
+    "json-schema",
+    "ham-radio"
+  ]
+}
