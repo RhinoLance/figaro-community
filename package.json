@@ -25,9 +25,7 @@
     "test:figaro-tools": "npm run -w figaro-tools test",
     "publish:check:figaro-tools": "npm run -w figaro-tools publish:check",
     "prepare": "husky",
-    "syncScripts": "cd script-library && node sync-scripts.js",
-    "validateScripts": "node script-library/validate-scripts.js",
-    "checkScripts": "npm run syncScripts && npm run validateScripts"
+    "syncScripts": "cd script-library && node sync-scripts.js"
   },
   "devDependencies": {
     "husky": "^9.1.7"

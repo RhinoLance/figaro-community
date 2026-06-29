@@ -12,7 +12,7 @@ Scripts can also be run without installing by prepending the command with:
 `--yes --package`
 e.g.
 ```bash
-npx --yes --package figaro-tools figaro-ftd-validate my-task.json
+npx --yes --package figaro-tools@latest figaro-ftd-validate my-task.json
 ```
 
 ## Validate a task file
