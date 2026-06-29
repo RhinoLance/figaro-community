@@ -1,0 +1,65 @@
+---
+title: Testing Strategy
+description: Validation and test workflow for generated FTD JSON files.
+sidebar_position: 5
+---
+
+`This page is intended for AI Coding Agents, not people.`
+
+# Testing Strategy
+
+Use this workflow after creating or editing any FTD JSON.
+
+## Step 1: Static self-check (agent)
+
+Before returning output, verify:
+
+- JSON parses successfully.
+- Required keys are present.
+- No extra keys exist.
+- Value types and ranges are correct.
+- script has no obvious syntax issues.
+- If TX is present, RX cleanup exists.
+- If timers are present, cleanup exists.
+
+## Step 2: Validator command
+
+Run the FTD validator with this exact command:
+
+```bash
+npx --yes --package figaro-tools@latest figaro-ftd-validate <path-to-task.json>
+```
+
+Validation policy:
+
+- Run validation after creating or modifying any FTD file.
+- If validation fails, fix the JSON and rerun until it passes.
+- Report either success or exact validator errors.
+
+## Step 3: Recommended repository checks
+
+When working inside this repository, also run:
+
+```bash
+npm run validateScripts
+```
+
+This catches shape errors and common script-safety problems.
+
+## Step 4: Manual behavior test plan
+
+Perform a controlled manual test:
+
+1. Confirm initial radio state.
+2. Run task once and verify expected CAT side effects.
+3. Cancel mid-flow and verify cleanup executes.
+4. Repeat run to confirm idempotent behavior.
+5. For autorun tasks, reconnect and verify priority/order behavior.
+
+## Output note requirement
+
+After validation, include a short status note such as:
+
+- Validation passed: figaro-ftd-validate reported 0 errors.
+
+If validation did not pass, include the exact failing messages.

@@ -1,0 +1,58 @@
+---
+title: Guardrails
+description: Safety and reliability rules for generated task scripts.
+sidebar_position: 4
+---
+
+`This page is intended for AI Coding Agents, not people.`
+
+# Guardrails
+
+Use these guardrails for every generated task script.
+
+## Always-safe behavior
+
+- Prefer receive/monitor actions over transmit actions unless TX is explicitly required.
+- Keep each task bounded by timeout, stop condition, or explicit cancel path.
+- Use defensive parsing for every CAT response.
+- Fail gracefully with clear logs instead of throwing uncaught errors.
+
+## TX/RX safety
+
+- If script issues TX;, it must include an RX; cleanup path.
+- Place RX cleanup in finally when possible.
+- If TX duration is prompt-driven, enforce a hard maximum duration.
+- On parse error or timeout during TX flow, default to RX cleanup.
+
+## Timer safety
+
+- Keep references to every timeout/interval handle.
+- Clear all active timers on completion and cancel.
+- Avoid nested interval creation that can multiply over time.
+- Prefer recursive timeout over interval when pacing depends on device responsiveness.
+
+## Retry and timeout policy
+
+- Use bounded retries with explicit max attempts.
+- Use finite wait durations for CAT operations.
+- Log both retry count and terminal failure reason.
+- Stop retries early on explicit user cancel.
+
+## Cancellation policy
+
+- Support cancellation for long-running operations.
+- Route cancellation through one cleanup function.
+- Cleanup function should be idempotent (safe to call multiple times).
+
+## User input blocking
+
+- Prefer async execution of long running processes.
+- Use `pause` API to allow user to cancel script.
+
+## GUI feedback
+
+- print API can display two lines of up to 4 characters.
+- prefer setDescription API for longer messages.
+- prefer setTitle API to append additional value to task title, with 
+  setTitle( context.task.title + `${newValue}` )
+```
