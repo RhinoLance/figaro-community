@@ -1,4 +1,4 @@
-console.log("Multi SWR Check");
+console.log("Cycle Tune script");
 
 const FREQ_SRC = "SCRIPT"; // MSG | SCRIPT
 const MESSAGE_INDEX = 10;
@@ -50,7 +50,7 @@ const saveSettings = async () => {
 	freq = rawIF.substring(2,13);
 	vfo = rawIF.substring(30,31) == "0" ? "A" : "B";
 	mode = rawIF.substring(29,30);
-
+	
 	console.log(`Saved settings - Freq: ${freq}, VFO: ${vfo}, Mode: ${mode}`);
 }
 
@@ -84,27 +84,18 @@ const isFirmwareOk = (fwVersion, checkVersion) => {
 	return true;
 }
 
-const revertSettings = async () => {
+const revertSettings = () => {
 	sendCat(`MD${mode};`, false);
 	sendCat(`F${vfo}${freq};`, false);
 };
 
-const getSWR = async () => {
-	
-	const resultList = [];
-	for( let cI=0; cI<10; cI++) {
-		const raw = (await sendCat('SW;')).substring(2);
-		let val = raw / 100;
-		resultList.push(val);
-	}
-
-	const sum = resultList.reduce((acc, value) => acc + value, 0);
-
-	const avg = sum/10;
-	return avg.toFixed(1);
+const printSWR = async () => {
+	const raw = (await sendCat('SW;')).substring(2);
+	let val = raw / 100;
+	print( `${dispFreq}\n${val.toFixed(1)}` );
 };
 
-const setBand = (freq) => {
+const getBand = (freq) => {
 	const band = Math.floor(freq / 1000000);
 	return `${band} MHz`;
 };
@@ -113,21 +104,25 @@ const tuneSetup = async () => {
 	await saveSettings();
 };
 
-const txStart = () => {
+const tuneStart = () => {
 	sendCat('MD8;', false); // SWR
 };
 
-const txStop = () => {
+const tuneStop = () => {
 	sendCat(`MD${mode};`, false);
 }
+
+const tuneTeardown = () => {
+	task.clearInterval(interval);
+	revertSettings();
+};
 
 const prerunCheck = async () => {
 
 	const fwVersion = await getFirmwareVersion();
-	const reqFw = [1,4,3];
-	if( !isFirmwareOk(fwVersion, reqFw)) {
-		setDescription("ERROR: This script requires firmware >= " + 
-			reqFw.join("."));
+
+	if( !isFirmwareOk(fwVersion, [1,4,3])) {
+		setDescription("ERROR: This script requires firmware >= 1.4.3");
 		return false;
 	}
 
@@ -135,7 +130,7 @@ const prerunCheck = async () => {
 
 }
 
-let freq, vfo, mode, power;
+let interval, freq, vfo, mode, dispFreq;
 
 if( !(await prerunCheck())) return;
 
@@ -143,27 +138,14 @@ const freqList = await getFreqList();
 
 await tuneSetup();
 
-let description = "Checking ";
-
-setDescription( description );
-
-const swrList = [];
+interval = task.setInterval(printSWR, 500);
 
 for( const tFreq of freqList ) {
-	await sendCat(`F${vfo}${tFreq};`, false);
-	await txStart();
-	await delay(100);
-	const swr = await getSWR();
-	swrList.push({freq: tFreq, swr });  
-	await txStop();	
-	setDescription( description += "." );
+	dispFreq = getBand(tFreq);
+	sendCat(`F${vfo}${tFreq};`, false);
+	await tuneStart();
+	await pause('play-pause', '#D63031');
+	await tuneStop();
 }
 
-await revertSettings();
-
-let output = swrList.map( v=> {
-	return `${Math.round(v.freq/100)/10}: ${v.swr}`
-})
-.join(" | ");
-
-setDescription( output );
+tuneTeardown();
