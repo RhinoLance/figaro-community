@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://figaro.conryclan.com/docs/tools/ai-authoring/figaro-ftd.schema.json",         
+  "title": "Figaro Task Definition",
+  "description": "Schema for Figaro task definition JSON files.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "title",
+    "description",
+    "script",
+    "autoRunOnConnect",
+    "autoRunPriority",
+    "autoLock",
+    "runLocked"
+  ],
+  "properties": {
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 120
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000
+    },
+    "script": {
+      "type": "string",
+      "minLength": 1
+    },
+    "color": {
+      "type": "string",
+      "pattern": "^#[0-9a-fA-F]{6}$"
+    },
+    "autoRunOnConnect": {
+      "type": "boolean"
+    },
+    "autoRunPriority": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 999
+    },
+    "autoLock": {
+      "type": "boolean"
+    }
+  }
+}

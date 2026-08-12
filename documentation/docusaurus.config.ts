@@ -83,7 +83,7 @@ const config: Config = {
 
 	themeConfig: {
 		// Replace with your project's social card
-		image: 'img/docusaurus-social-card.jpg',
+		// image: 'img/docusaurus-social-card.jpg',
 		colorMode: {
 			respectPrefersColorScheme: true,
 		},
@@ -117,6 +117,12 @@ const config: Config = {
 					sidebarId: 'toolsSidebar',
 					position: 'left',
 					label: 'Tools',
+				},
+				{
+					type: 'docSidebar',
+					sidebarId: 'apiSidebar',
+					position: 'left',
+					label: 'API',
 				},
 				{
 					type: 'custom-VersionNavbarItem',
@@ -171,7 +177,7 @@ const config: Config = {
 					],
 				},
 			],
-			copyright: `Copyright © ${new Date().getFullYear()}, Inc. Built with Docusaurus.`,
+			copyright: `Copyright © ${new Date().getFullYear()}, Lance Conry.`,
 		},
 		prism: {
 			theme: prismThemes.github,

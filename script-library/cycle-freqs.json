@@ -1,0 +1,10 @@
+{
+  "title": "Cycle Freqs",
+  "description": "Cycle through a list of frequencies.",
+  "script": "console.log(\"Cycle Freqs\");\r\n\r\nconst FREQ_SRC = \"SCRIPT\"; // MSG | SCRIPT\r\nconst MESSAGE_INDEX = 10;\r\nconst FREQ_LIST = [\r\n\t7032000,\r\n\t14044000,\r\n\t21044000\r\n];\r\n\r\nconst getFreqList = async () => {\r\n\t\r\n\tswitch (FREQ_SRC) {\r\n\t\tcase \"MSG\":\r\n\t\t\treturn await getFreqListFromMessage(MESSAGE_INDEX);\r\n\t\tcase \"SCRIPT\":\r\n\t\t\treturn FREQ_LIST;\r\n\t\tdefault:\r\n\t\t\tthrow new Error(`Invalid FREQ_SRC: ${FREQ_SRC}`);\r\n\t}\r\n}\r\n\r\nconst getFreqListFromMessage = async (index) => {\r\n\t\r\n\tconst raw = (await sendCat(`MMMessages|Message ${index};`)).substring(2);\r\n\treturn raw.split('|')\r\n\t\t.map(f => f.trim())\r\n\t\t.filter(f => /^\\d+$/.test(f));\r\n}\r\n\r\nconst getVfo = async () => {\r\n\tconst rawIF = (await sendCat(`IF;`)).substring(2);\r\n\tconst vfo = rawIF.substring(28,29) == \"0\" ? \"A\" : \"B\";\r\n\treturn vfo;\r\n}\r\n\r\nconst getNextFreqIndex = (lastIndex, freqList) => {\r\n\tlet index = isNaN(lastIndex) ? 0 : lastIndex;\r\n\tindex = (index + 1) % freqList.length;\r\n\treturn index;\r\n}\r\n\r\nconst formatMarker = (index, freqList) => {\r\n\tlet pre = \"-\".repeat(index);\r\n\tlet post = \"-\".repeat(freqList.length - index - 1);\r\n\tlet output = `${pre}${index + 1}${post}`;\r\n\t\r\n\treturn output;\r\n}\r\n\r\nconst freqList = await getFreqList();\r\nconst lastIndex = parseInt(Storage.get(\"freqIndex\"));\r\nconst index = getNextFreqIndex(lastIndex, freqList);\r\nconst freq = freqList[index];\r\n\r\nStorage.set(\"freqIndex\", index);\r\n\r\nconst vfo = await getVfo();\r\nsendCat(`F${vfo}${freq};`, false);\r\n\r\nsetDescription(formatMarker(index, freqList));",
+  "autoRunOnConnect": false,
+  "autoRunPriority": 0,
+  "autoLock": false,
+  "runLocked": false,
+  "color": "#22c55e"
+}
