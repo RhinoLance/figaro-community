@@ -1,0 +1,41 @@
+---
+title: SWR Tune
+hide_title: true
+description: Places the radio into SWR mode, and display the SWR.
+---
+
+import RemoteCode from '@site/src/components/RemoteCode';
+import ScriptPageHeader from '@site/src/components/ScriptPageHeader';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<ScriptPageHeader
+  title="SWR Tune"
+  summary="Places the radio into SWR mode, and display the SWR."
+  installLabel="Place the radio into SWR mode, and display the SWR"
+  ftdFileName="swr-tune.json"
+  reqFirmware="1.4.3"
+/>
+
+<Tabs
+	defaultValue="overview"
+	values={[
+		{label: 'Overview', value: 'overview'},
+		{label: 'Source Code', value: 'source'},
+	]}>
+
+<TabItem value="overview">
+
+	This task places the radio into SWR mode, and displays the live SWR for the 
+	current frequency.
+
+	![active task](media/swr-tune-activeTask.png)
+
+</TabItem>
+
+<TabItem value="source">
+	### Source
+	<RemoteCode language="js" scriptLibraryFile="tune.js" />
+</TabItem>
+
+</Tabs>

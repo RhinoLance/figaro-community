@@ -9,6 +9,7 @@ export default function ScriptPageHeader({
   summary,
   installLabel,
   ftdFileName,
+  reqFirmware = "",
   style,
 }) {
   return (
@@ -17,7 +18,7 @@ export default function ScriptPageHeader({
         <p className={styles.kicker}>{header}</p>
         <h1 className={styles.title}>{title}</h1>
         {summary ? <p className={styles.summary}>{summary}</p> : null}
-      </div>
+	  </div>
       <div className={styles.actions}>
         <InstallTaskButton
           ftdFileName={ftdFileName}
@@ -26,8 +27,16 @@ export default function ScriptPageHeader({
 		  showQrCode={true}
         />
 
-		
+		<div className={styles.firmware} title="Minimum required QMX firmware">
+			{displayReqVersion(reqFirmware)}
+		</div>
       </div>
     </section>
   );
+}
+
+function displayReqVersion(version) {
+	if( version === "") return version;
+
+	return `🏷️ ≥${version}`;
 }
