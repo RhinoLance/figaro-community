@@ -1,9 +1,4 @@
-const MMINDEX_MAX_PA_V = 'MMProtection|Max. PA voltage';
-const MMINDEX_SWR_PROTECTION = 'MMProtection|SWR protection';
-const PA_V_TUNE = 5.00;
-const PA_V_OPERATE = 11.5;
-
-let interval, freq, vfo, mode, power, vol, dispFreq, swrProtection;
+console.log("Tune script");
 
 const saveSettings = async () => {
 	/*
@@ -35,20 +30,11 @@ const saveSettings = async () => {
 	vfo = rawIF.substring(28,29) == "0" ? "A" : "B";
 	mode = rawIF.substring(27,28);
 
-	power = (await sendCat(`${MMINDEX_MAX_PA_V};`)).substring(2);
-	swrProtection = (await sendCat(`${MMINDEX_SWR_PROTECTION};`)).substring(2);
-	vol = (await sendCat(`AG;`)).substring(2);
-
-
-	console.log(`Saved settings - Freq: ${freq}, VFO: ${vfo}, Mode: ${mode}, Power: ${power}`);
+	console.log(`Saved settings - Freq: ${freq}, VFO: ${vfo}, Mode: ${mode}`);
 }
 
 const revertSettings = () => {
 	sendCat(`MD${mode};`, false);
-	sendCat(`${MMINDEX_MAX_PA_V}=${PA_V_OPERATE};`, false);
-	sendCat(`${MMINDEX_SWR_PROTECTION}=${swrProtection};`, false);
-	sendCat(`AG${vol};`, false); // restore AF gain
-
 };
 
 const printSWR = async () => {
@@ -57,28 +43,21 @@ const printSWR = async () => {
 	print( `${dispFreq}\n${val.toFixed(1)}` );
 };
 
-const setBand = (freq) => {
-	const band = Math.floor(freq / 1000000);
+const getBand = (freq) => {
+	const band = Math.floor(freq / 100000);
 	return `${band} MHz`;
 };
 
 const tuneSetup = async () => {
 	await saveSettings();
-	sendCat('AG00;', false); // AF gain to 0 to supress audio spike on TX.
-	sendCat(`${MMINDEX_MAX_PA_V}=${PA_V_TUNE};`, false);
-	sendCat('MD6;', false); // FSK
-	
 };
 
 const tuneStart = () => {
-	sendCat('TX;', false);
-	sendCat('TA500;', false);
+	sendCat('MD8;', false); // SWR
 };
 
 const tuneStop = async () => {
-	sendCat('TA0;', false);
-	delay(6);
-	sendCat('RX;', false);
+	sendCat(`MD${mode};`, false);
 }
 
 const tuneTeardown = () => {
@@ -86,9 +65,57 @@ const tuneTeardown = () => {
 	revertSettings();
 };
 
+const getFirmwareVersion = async () => {
+	const versionText = await sendCat("VN;");  // 1_04_003QMX;
+	const parts = versionText.split("_");
+	const major = parseInt(parts[0].substring(2));
+	const minor = parseInt(parts[1]);
+	const patch = parseInt(parts[2].substring(0,3));
+
+	return [major,minor,patch];
+}
+
+const isFirmwareOk = (fwVersion, checkVersion) => {
+
+	const invalidCheckVersion = () => {
+		console.error( `Invalid firmware check version: ${checkVersion}`)
+	};
+
+	if( checkVersion.length < 3){
+		invalidCheckVersion();
+	}
+
+	for( let cI=0; cI<fwVersion.length; cI++ ) {
+		if( isNaN(checkVersion[cI])) {
+			invalidCheckVersion();
+		}
+		if( fwVersion[cI] < checkVersion[cI] ) return false;
+	}
+
+	return true;
+}
+
+const prerunCheck = async () => {
+
+	const fwVersion = await getFirmwareVersion();
+	const reqFw = [1,4,3];
+	if( !isFirmwareOk(fwVersion, reqFw)) {
+		setDescription("ERROR: This script requires firmware >= " + 
+			reqFw.join("."));
+		return false;
+	}
+
+	return true;
+
+}
+
+let interval, freq, vfo, mode, power, vol, dispFreq;
+
+if( !(await prerunCheck())) return;
+
 await tuneSetup();
 
-dispFreq = setBand(freq);
+dispFreq = getBand(freq);
 interval = task.setInterval(printSWR, 500);
 
 await tuneStart();
